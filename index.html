@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>血染钟楼 - 听凭天命 · 幻境夜录</title>
+    <style>
+        :root {
+            --bg-color: #f4f3ec;
+            --card-bg: #ffffff;
+            --text-main: #2c2c2c;
+            --text-muted: #666666;
+            --border-color: #dcdcdc;
+            
+            --good-bg: #f0f7f4;
+            --good-border: #8abeb2;
+            --good-title: #3a7d6e;
+            
+            --evil-bg: #fdf0f0;
+            --evil-border: #d48a8e;
+            --evil-title: #a7424a;
+            
+            --demon-bg: #4a1c1f;
+            --demon-text: #fdf0f0;
+
+            --tag-bg: #ffffff;
+            --tag-border: #cccccc;
+            --nav-bg: #ffffff;
+            --nav-active: #2c2c2c;
+            --nav-active-text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            font-family: "Noto Serif SC", "SimSun", "STSong", serif;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-header h1 {
+            font-size: 32px;
+            color: #2c2c2c;
+            letter-spacing: 4px;
+            margin: 0 0 10px 0;
+        }
+
+        /* 顶部导航目录 */
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+            max-width: 900px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: var(--nav-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: bold;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--text-muted);
+        }
+
+        .nav-btn.active {
+            background: var(--nav-active);
+            color: var(--nav-active-text);
+            border-color: var(--nav-active);
+        }
+
+        /* 阵容推荐器模块 */
+        .recommender-panel {
+            background: #fff;
+            border: 2px dashed #b9a28e;
+            border-radius: 12px;
+            padding: 25px 30px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 40px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .recommender-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #5c4431;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommender-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recommender-controls select {
+            padding: 8px 15px;
+            font-size: 15px;
+            font-family: inherit;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            background: #fafafa;
+            cursor: pointer;
+        }
+
+        .recommendation-result {
+            display: none;
+            background: #fbfaf8;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .setup-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        .setup-row:last-child { margin-bottom: 0; }
+
+        .setup-label {
+            width: 70px;
+            font-weight: bold;
+            flex-shrink: 0;
+            padding-top: 5px;
+        }
+
+        .setup-label.demon { color: var(--demon-bg); }
+        .setup-label.minion { color: var(--evil-title); }
+        .setup-label.good { color: var(--good-title); }
+
+        .setup-cards {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .setup-chip {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .setup-chip:hover { transform: scale(1.05); }
+
+        .setup-chip.demon-chip { background: var(--demon-bg); color: var(--demon-text); border-color: var(--demon-bg); }
+        .setup-chip.minion-chip { background: var(--evil-bg); color: var(--evil-title); border-color: var(--evil-border); }
+        .setup-chip.good-chip { background: var(--good-bg); color: var(--good-title); border-color: var(--good-border); }
+
+        /* 卡片容器 */
+        .cards-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 45px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            display: none; 
+            animation: fadeIn 0.4s ease;
+            position: relative;
+        }
+
+        .card.active {
+            display: block; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .role-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+            border: 2px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .header-content { flex: 1; }
+
+        .role-name-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .role-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .role-en {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-family: sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .prototype-name {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 12px;
+            font-family: sans-serif;
+        }
+
+        .intro-quote {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .section-label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .section-label::before, .section-label::after {
+            content: ' — ';
+            opacity: 0.5;
+        }
+
+        .lore-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+
+        .ability-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .faction-block {
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid;
+            position: relative;
+        }
+
+        .faction-good {
+            background-color: var(--good-bg);
+            border-color: var(--good-border);
+        }
+
+        .faction-evil {
+            background-color: var(--evil-bg);
+            border-color: var(--evil-border);
+        }
+
+        .faction-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* 恶魔/爪牙 切换 Tabs */
+        .evil-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .evil-tab {
+            background: transparent;
+            border: 1px solid var(--evil-border);
+            color: var(--evil-title);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .evil-tab.active {
+            background: var(--evil-title);
+            color: #fff;
+        }
+        
+        .evil-tab.demon-tab.active {
+            background: var(--demon-bg);
+            border-color: var(--demon-bg);
+            color: var(--demon-text);
+        }
+
+        .faction-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin: 0;
+            font-family: sans-serif;
+            text-align: justify;
+        }
+
+        .death-quote-wrapper {
+            margin-top: 35px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .death-quote {
+            font-size: 16px;
+            font-style: italic;
+            color: var(--text-muted);
+            margin: 0;
+            display: inline-block;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 20px;
+        }
+        .tag {
+            background-color: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #777;
+            font-family: sans-serif;
+            letter-spacing: 1px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-header">
+        <h1>听凭天命 · 幻境夜录</h1>
+    </div>
+
+    <!-- 阵容推荐器 -->
+    <div class="recommender-panel">
+        <div class="recommender-header">
+            🔮 幻境推演：最佳九人局组合 (1恶魔 + 2爪牙 + 6好人)
+        </div>
+        <div class="recommender-controls">
+            <label>请选择本局的恶魔：</label>
+            <select id="demonSelect" onchange="recommendSetup()">
+                <option value="">-- 点击选择恶魔 --</option>
+            </select>
+        </div>
+        <div id="recommendationResult" class="recommendation-result">
+            <div class="setup-row">
+                <div class="setup-label demon">👿 恶魔</div>
+                <div class="setup-cards" id="rec-demon"></div>
+            </div>
+            <div class="setup-row">
+                <div class="setup-label minion">🩸 爪牙</div>
+                <div class="setup-cards" id="rec-minions"></div>
+            </div>
+            <div class="setup-row">
+                <div class="setup-label good">💠 善良</div>
+                <div class="setup-cards" id="rec-good"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导航菜单 -->
+    <div class="nav-menu" id="navMenu"></div>
+
+    <!-- 卡片容器 -->
+    <div class="cards-container" id="cardsContainer"></div>
+
+    <script>
+        // 角色数据库
+        const characters = [
+            {
+                id: 1, name: "遗容师", enName: "The Mortician", prototype: "三金", icon: "👁", color: "#e2d9fb",
+                quote: "「其实我并不擅长安慰人，我只是能看懂他们离开时留下的构图。」",
+                lore: "他拥有极度敏锐的审美直觉，习惯于在小镇边缘冷眼旁观。情感的钝感让他不会浪费时间去抚慰生者，而是将全部的专注力放在死者留下的细节上，从残缺的尸骸中拼凑出整个迷局的真相。",
+                good: "<strong>每个夜晚</strong>，选择一名死亡玩家，得知其<strong>所属阵营</strong>或<strong>死因</strong>。<br><br>若你在白天公开且明显地“倒吸一口凉气”，当晚获得的信息将精确至<strong>具体角色</strong>。但此举会被记录，极易引来恶魔追杀。",
+                minion: "<strong>每个夜晚</strong>，选择一名存活玩家，得知其<strong>具体角色</strong>。<br><br>若你在白天公开“倒吸一口凉气”，当晚可<strong>伪造一具尸体</strong>的死因与角色线索，使善良阵营的探查技能（如送葬者）获得<strong>虚假信息</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>若你白天公开“倒吸一口凉气”，当晚被杀害的玩家在所有验尸技能中会显示为<strong>错误的角色身份</strong>，且你当晚<strong>免疫一切侦查</strong>。",
+                deathQuote: "「这死去的构图……有点意思。」",
+                tags: ["信息探查", "尸体检视", "身份伪造"],
+                bestMinions: [5, 6] // 墓志铭(排坑造假) + 裂舌者(污染投票)
+            },
+            {
+                id: 2, name: "夜行者", enName: "The Nightwalker", prototype: "阿水", icon: "※", color: "#c9ebd8",
+                quote: "「没有人知道她几点出门，也没有人知道她从哪里回来。」",
+                lore: "她是一个纯粹的混乱能量体，对幻境规则的感知异于常人。她仿佛一辆永远不按时靠站的幽灵马车，不可预测的行为模式和永远在游离的状态，本身就是这钟楼之下最大的信息噪声制造源。",
+                good: "你的<strong>“实际座位”</strong>每晚都在存活玩家中<strong>随机移动</strong>。所有涉及位置判定的技能（如共情者）均以你的<strong>虚假位置</strong>结算。<br><br><strong>代价：</strong>说书人可随时宣布你“迟到”，使你在白天的处决环节<strong>失去投票权</strong>。",
+                minion: "<strong>每个夜晚</strong>，你可以秘密指定自己的<strong>虚假座位</strong>来完美伪装身份。<br><br><strong>每局限一次</strong>，在白天可强制令一名善良玩家“迟到”，使其当天<strong>完全失去发言权与投票权</strong>，直接瓦解小镇的公决。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>你的<strong>“实际座位”</strong>每晚都在随机移动，任何试图探查你位置或邻座的技能，都会得到<strong>彻底的虚假反馈</strong>，如同在追逐幽灵。",
+                deathQuote: "「等等，我现在在哪——哦。」",
+                tags: ["位置机制", "投票控制", "信息噪声"],
+                bestMinions: [4, 9] // 盲注者(放毒) + 玩偶匠(记忆错乱)
+            },
+            {
+                id: 3, name: "倦鸟", enName: "The Resting Wing", prototype: "老皇", icon: "🪶", color: "#faebd7",
+                quote: "「飞得太久了，一直不敢落地，因为落地意味着放弃警惕。」",
+                lore: "她是一个被命运重锤过却依然站立的执烛者。她习惯于向内施压，将长夜的重担扛在自己肩上，却不知道“学会松开那根绳子”才是真正的力量。那两只慵懒的黑猫，是她紧绷神经旁唯一的慰藉。",
+                good: "<strong>每个夜晚</strong>，你必须选择<strong>【施压】</strong>或<strong>【放手】</strong>。<br><br>选择【施压】可得知一名存活的<strong>邪恶玩家</strong>，但若<strong>连续三晚</strong>施压，你会因精神崩溃而<strong>直接死亡</strong>。<br>若<strong>连续两晚</strong>选择【放手】，可指定一名玩家，使其明晚<strong>绝对免疫恶魔袭击</strong>。",
+                minion: "<strong>每个夜晚</strong>，你必须选择【施压】或【放手】。<br><br>选择【施压】可令一名存活玩家当晚<strong>技能失效</strong>。若你<strong>连续两晚</strong>选择【放手】，恶魔将获得一次<strong>免疫死亡</strong>的绝对护盾。",
+                demon: "<strong>每个夜晚</strong>，你必须选择<strong>【施压】</strong>（杀害一名玩家）或<strong>【放手】</strong>（不杀任何人）。<br><br>若你隐忍并<strong>连续两晚</strong>选择【放手】，接下来的夜晚将解锁<strong>连杀</strong>能力，可<strong>无视护甲</strong>一夜双杀。",
+                deathQuote: "「终于……可以好好睡一觉了。」",
+                tags: ["承压权衡", "极致爆发", "治愈抉择"],
+                bestMinions: [8, 2] // 守藏者(免死保护恶魔休息) + 夜行者(禁言)
+            },
+            {
+                id: 4, name: "盲注者", enName: "The Blind Bettor", prototype: "克强", icon: "♠", color: "#fbe0e0",
+                quote: "「再烂的底牌我都见过，而且我也挺过来了。这局，我依然敢全押。」",
+                lore: "赌徒的野性直觉与智者的严谨方法论在她身上奇妙共存。她不是被动等待命运的羔羊，而是主动在混沌中建立框架，用自己的判断和性命换取高风险、高回报的制胜筹码。",
+                good: "<strong>每局限三次</strong>，在夜晚押注一名存活玩家的阵营。<br><br>猜对则得知其<strong>具体角色</strong>；猜错则获得<strong>虚假信息</strong>。<br>若三次机会<strong>全部猜错</strong>，你的直觉将觉醒，在当晚获得一条<strong>绝对真实的恶魔线索</strong>。",
+                minion: "<strong>每局限三次</strong>，在夜晚押注一名存活善良玩家的具体角色。<br><br>猜对则该玩家立刻陷入极深的<strong>“中毒”状态</strong>（技能失效且获假信息）直至游戏结束；猜错则无事发生。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br><strong>每局限一次</strong>，你可以押注一名存活善良玩家的具体角色。若猜对，你当晚<strong>额外获得一次杀戮机会</strong>；若猜错，你明晚将无法杀人。",
+                deathQuote: "「看来……这次概率没站在我这边。」",
+                tags: ["对局博弈", "高收益", "中毒机制"],
+                bestMinions: [5, 7] // 墓志铭(透视身份辅助押注) + 采孢人(毒)
+            },
+            {
+                id: 5, name: "墓志铭", enName: "The Epitaph", prototype: "陈姐", icon: "✟", color: "#e0e7fb",
+                quote: "「我都记着呢，这笔旧账咱们慢慢算。」",
+                lore: "她拥有自成体系的审美和超凡的过目不忘之能。作为掌握幻境旧账的人，她能敏锐捕捉到每一丝异动与隐情。在这谎言横行的小镇里，她是死者与未亡人唯一留存的历史载体。",
+                good: "<strong>游戏开局时</strong>，得知两张<strong>未在场</strong>的外来者或爪牙牌，从而压缩排坑空间。<br><br><strong>每局限一次</strong>，在白天可发起“质询”指定一名玩家，说书人必须当众以点头或摇头确认其<strong>是否为邪恶阵营</strong>。",
+                minion: "<strong>游戏开局时</strong>，直接得知所有存活镇民的<strong>具体角色</strong>。<br><br><strong>每局限一次</strong>，在白天当众“攻讦”一人。若目标是镇民，他当晚必定<strong>“中毒”</strong>，且次日若被处决，将<strong>无法发动遗言或濒死反击技能</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>若被你杀害的玩家曾在白天被你当众“攻讦”过，该玩家的阵营信息在死后会被<strong>永久篡改为邪恶</strong>，彻底误导善良阵营的排坑逻辑。",
+                deathQuote: "「等等，我还有好多没刻完……」",
+                tags: ["初始信息", "强制质询", "封锁篡改"],
+                bestMinions: [1, 9] // 遗容师(伪造死因) + 玩偶匠(假信息)
+            },
+            {
+                id: 6, name: "裂舌者", enName: "The Split Tongue", prototype: "糖哥", icon: "💬", color: "#fbe0ed",
+                quote: "「你给我闭嘴！我骂人从来不带脏字！……不过你刚才说的好像也有点道理？」",
+                lore: "一条舌头两种用法。他拥有极其精准、能把人彻底摧毁的犀利言辞；但同时，他的心智立场又极易流动，很容易被他人的话语所左右。这种极致的矛盾在他身上形成了可怕的张力。",
+                good: "由你<strong>亲自提名</strong>的玩家若被处决，其死后将<strong>永久失去“幽灵票”</strong>与死亡触发技能。<br><br><strong>代价：</strong>如果你的投票或提名<strong>盲从了邪恶阵营</strong>，你当晚必定陷入<strong>“中毒”状态</strong>（获得假信息或防御失效）。",
+                minion: "由你<strong>亲自提名</strong>的善良玩家若被处决，你可指定一名存活玩家当晚<strong>必定“中毒”</strong>。<br><br>凡是在处决环节<strong>与你投出相同票型</strong>的善良玩家，当晚获得的信息都有可能被说书人<strong>污染变假</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>你的巧言令色能污染心智：白天若有善良玩家在处决投票中<strong>跟风与你的票型完全一致</strong>，他当晚必定陷入<strong>“中毒”状态</strong>。",
+                deathQuote: "「你说的对……不对，我怎么死了？！」",
+                tags: ["处决联动", "幽灵票", "信息污染"],
+                bestMinions: [2, 7] // 夜行者(取消投票) + 采孢人(毒蔓延)
+            },
+            {
+                id: 7, name: "采孢人", enName: "The Spore Gatherer", prototype: "大猩", icon: "🍄", color: "#e0fbf4",
+                quote: "「只要能理清脉络，再致命的毒瘴也能成为解药。」",
+                lore: "她天生体质敏感，肌肤的每一寸都在替她承受着幻境中的“毒素”。长期的痛楚磨砺出了她剥丝抽茧的极度冷静。那只名为“小草”的灵犬，是她在混沌钟楼下唯一柔软的同伴。",
+                good: "你对毒素极其敏感。若你在<strong>“中毒”或“醉酒”</strong>状态下死亡，你将直接得知<strong>投毒者的真实身份</strong>。<br><br><strong>每局限一次</strong>，白天可指出两名玩家并声明必有邪恶；若<strong>猜对</strong>，当晚得知具体是谁；若<strong>猜错</strong>，你将<strong>立刻死亡</strong>。",
+                minion: "<strong>每个夜晚</strong>，释放毒孢子使一名玩家陷入<strong>“中毒”状态</strong>（技能失效/获假信息）。<br><br>若该玩家在中毒期间死亡，其死亡触发的技能（如乌鸦嘴）将向善良阵营传递<strong>彻底相反的虚假逻辑</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>若你杀害的玩家正处于<strong>“中毒”或“醉酒”</strong>状态，他的死亡会引爆毒孢子，使他邻座的一名玩家也立刻陷入<strong>“中毒”状态</strong>。",
+                deathQuote: "「咳……咳咳，小草，帮我把最后这段线索带给他们。」",
+                tags: ["破毒反制", "高风险", "状态操纵"],
+                bestMinions: [4, 1] // 盲注者(叠毒) + 遗容师(尸体造假)
+            },
+            {
+                id: 8, name: "守藏者", enName: "The Curator", prototype: "小倩", icon: "⏳", color: "#fbf5e0",
+                quote: "「我可以对千金吝啬，但这光阴卷上的岁月，我愿意倾囊相赠。」",
+                lore: "她是一位极度护食的守护者，将金币和光阴都小心翼翼地藏在匣子里。但她总是无法抗拒危险的诱惑，一次次在背叛中飞蛾扑火。但在她看似吝啬的外表下，藏着一卷记录了所有人三百六十五个日夜的光阴卷。",
+                good: "<strong>第一晚</strong>必须盲选一名“寄托”。若其为邪恶，你<strong>全程“中毒”</strong>（获假信息）。<br><br><strong>每局限一次</strong>，在夜晚交出光阴卷，使一名玩家<strong>解除所有负面状态</strong>并<strong>抵挡一次恶魔袭击</strong>，但你将失去能力并可能<strong>替其承受死亡</strong>。",
+                minion: "<strong>第一晚</strong>盲选一名善良玩家为“寄托”，只要你存活，任何查验他的探查技能都将为你和恶魔提供<strong>清白掩护</strong>（验出好人）。<br><br><strong>每局限一次</strong>，交出岁月卷，使一名善良玩家误以为受保护，实则在恶魔受击时<strong>替恶魔挡下致命的反噬</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br><strong>第一晚</strong>必须选定一名“寄托”。只要寄托存活，你<strong>绝对免疫</strong>任何处决与技能伤害；但若你的寄托死亡，你将一同<strong>陪葬殒命</strong>。",
+                deathQuote: "「这卷里的每一页，都比金子还贵……请替我收好它。」",
+                tags: ["寄托绑定", "免死守护", "双刃剑"],
+                bestMinions: [3, 5] // 倦鸟(技能封锁) + 墓志铭(透视找好寄托)
+            },
+            {
+                id: 9, name: "玩偶匠", enName: "The Toymaker", prototype: "老日", icon: "🧸", color: "#ffdcd0",
+                quote: "「哎呀，我刚刚想说什么来着？算了，你看我新做的小熊可爱吗！」",
+                lore: "她是个永远乐呵呵的玩偶匠，沉迷于制作各种稀奇古怪的小玩意儿。在这被恐惧笼罩的幻境中，她那差到离谱的记性反而成了一件幸事——她记不住仇恨，也记不住阴霾，没有什么能剥夺她那毫无戒心的开朗笑容。",
+                good: "<strong>每个夜晚</strong>，你会得知一名存活玩家的阵营。但因为记性极差，第二天白天，说书人会私下给你一个<strong>截然相反</strong>的阵营信息来覆盖你的记忆，你必须自行分辨真伪。<br><br><strong>被动：</strong>免疫负面情绪，恶魔对你的第一次袭击必定<strong>无效</strong>。",
+                minion: "<strong>每个夜晚</strong>，选择一名善良玩家送出“迷障玩偶”。该玩家当晚将陷入<strong>“记忆错乱”</strong>状态，获得的所有探查信息将被说书人<strong>彻底篡改为虚假线索</strong>。<br><br><strong>被动：</strong>任何查验阵营的技能都会把你判定为<strong>“善良镇民”</strong>。",
+                demon: "<strong>每个夜晚</strong>，选择一名玩家将其杀害。<br><br>你的恶魔气息被彻底隐藏。所有查验你的技能都会把你判定为<strong>“善良镇民”</strong>。被你杀死的玩家，在查验中会显示为<strong>死于其他原因</strong>（如处决或毒发）。",
+                deathQuote: "「哎呀……我好像忘了躲开了。算了，这个布偶送给你吧。」",
+                tags: ["信息混淆", "袭击免疫", "绝对伪装"],
+                bestMinions: [7, 6] // 采孢人(毒连环) + 裂舌者(处决惩罚)
+            }
+        ];
+
+        // 渲染选项和卡片
+        function init() {
+            const navMenu = document.getElementById('navMenu');
+            const cardsContainer = document.getElementById('cardsContainer');
+            const demonSelect = document.getElementById('demonSelect');
+
+            characters.forEach((char, index) => {
+                // 导航按钮
+                const btn = document.createElement('button');
+                btn.className = `nav-btn ${index === 0 ? 'active' : ''}`;
+                btn.textContent = `${char.name} (${char.prototype})`;
+                btn.onclick = () => showCard(char.id);
+                navMenu.appendChild(btn);
+
+                // 恶魔下拉框
+                const option = document.createElement('option');
+                option.value = char.id;
+                option.textContent = `${char.name} (${char.prototype})`;
+                demonSelect.appendChild(option);
+
+                // 渲染卡片
+                const card = document.createElement('div');
+                card.className = `card ${index === 0 ? 'active' : ''}`;
+                card.id = `card-${char.id}`;
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="role-icon" style="background-color: ${char.color}">${char.icon}</div>
+                        <div class="header-content">
+                            <div class="role-name-wrapper">
+                                <h2 class="role-name">${char.name}</h2>
+                                <span class="role-en">${char.enName}</span>
+                            </div>
+                            <div class="prototype-name">原型：${char.prototype}</div>
+                            <div class="intro-quote">${char.quote}</div>
+                        </div>
+                    </div>
+                    <div class="section-label">卷宗底色</div>
+                    <div class="lore-text">${char.lore}</div>
+                    
+                    <div class="ability-grid">
+                        <div class="faction-block faction-good">
+                            <div class="faction-title">💠 善良形态（镇民/外来者）</div>
+                            <p class="faction-desc">${char.good}</p>
+                        </div>
+                        <div class="faction-block faction-evil">
+                            <div class="faction-title">
+                                🩸 邪恶形态
+                                <div class="evil-tabs">
+                                    <button class="evil-tab active" onclick="toggleEvilTab(${char.id}, 'minion', this)">爪牙</button>
+                                    <button class="evil-tab demon-tab" onclick="toggleEvilTab(${char.id}, 'demon', this)">👿 恶魔</button>
+                                </div>
+                            </div>
+                            <p class="faction-desc" id="evil-desc-${char.id}">${char.minion}</p>
+                        </div>
+                    </div>
+
+                    <div class="death-quote-wrapper">
+                        <p class="death-quote">${char.deathQuote}</p>
+                    </div>
+                    <div class="tags">
+                        ${char.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // 切换卡片显示
+        function showCard(id) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`card-${id}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 切换恶魔/爪牙说明
+        function toggleEvilTab(charId, type, btnElement) {
+            const char = characters.find(c => c.id === charId);
+            const descElement = document.getElementById(`evil-desc-${charId}`);
+            
+            // 更新文字
+            descElement.innerHTML = type === 'minion' ? char.minion : char.demon;
+            
+            // 更新按钮状态
+            const tabs = btnElement.parentElement.querySelectorAll('.evil-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
+
+        // 阵容推荐逻辑
+        function recommendSetup() {
+            const demonId = parseInt(document.getElementById('demonSelect').value);
+            const resultPanel = document.getElementById('recommendationResult');
+            
+            if (!demonId) {
+                resultPanel.style.display = 'none';
+                return;
+            }
+
+            const demon = characters.find(c => c.id === demonId);
+            const minionIds = demon.bestMinions;
+            const minions = characters.filter(c => minionIds.includes(c.id));
+            const goods = characters.filter(c => c.id !== demonId && !minionIds.includes(c.id));
+
+            // 渲染恶魔
+            document.getElementById('rec-demon').innerHTML = `
+                <div class="setup-chip demon-chip" onclick="showCard(${demon.id})">
+                    ${demon.icon} ${demon.name}
+                </div>
+            `;
+
+            // 渲染爪牙
+            document.getElementById('rec-minions').innerHTML = minions.map(m => `
+                <div class="setup-chip minion-chip" onclick="showCard(${m.id})">
+                    ${m.icon} ${m.name}
+                </div>
+            `).join('');
+
+            // 渲染好人
+            document.getElementById('rec-good').innerHTML = goods.map(g => `
+                <div class="setup-chip good-chip" onclick="showCard(${g.id})">
+                    ${g.icon} ${g.name}
+                </div>
+            `).join('');
+
+            resultPanel.style.display = 'block';
+        }
+
+        // 初始化
+        init();
+    </script>
+</body>
+</html>
