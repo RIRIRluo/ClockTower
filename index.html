@@ -50,6 +50,106 @@
             margin: 0 0 10px 0;
         }
 
+        /* 顶级页签导航 */
+        .main-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .main-tab-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .main-tab-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .main-tab-btn.active {
+            color: #222;
+            background: #e8e8e8;
+        }
+
+        .main-tab-content {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .main-tab-content.active {
+            display: flex;
+        }
+
+        /* 公开剧本表单样式 */
+        .script-board {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px 30px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            margin-top: 20px;
+        }
+        
+        .script-board-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 15px;
+        }
+        
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .script-col h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+        }
+        .script-col.town h3 { background: var(--town-bg); color: var(--town-text); }
+        .script-col.out h3 { background: var(--out-bg); color: var(--out-text); }
+        .script-col.minion h3 { background: var(--minion-bg); color: var(--minion-text); }
+        .script-col.demon h3 { background: var(--demon-bg); color: var(--demon-text); }
+        
+        .script-item {
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            background: #fbfaf8;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .script-item:hover { background: #f0f0f0; }
+        .script-item .proto { color: #888; font-size: 12px; }
+
         /* 顶部导航目录 */
         .nav-menu {
             display: flex;
@@ -168,6 +268,83 @@
         .setup-chip.minion-chip { background: var(--minion-bg); color: var(--minion-text); border-color: var(--minion-text); }
         .setup-chip.good-chip { background: var(--town-bg); color: var(--town-text); border-color: var(--town-text); }
         .setup-chip.out-chip { background: var(--out-bg); color: var(--out-text); border-color: var(--out-text); }
+
+        /* 羁绊录样式 */
+        .events-container {
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .events-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .events-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .event-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+        }
+        
+        .event-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .event-subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .event-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .event-desc strong {
+            color: #222;
+        }
+        
+        .event-list {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        .event-list li {
+            margin-bottom: 12px;
+        }
+        
+        .event-list em {
+            color: #666;
+            font-style: normal;
+            font-weight: 500;
+        }
 
         /* 角色大容器 */
         .cards-container { max-width: 1000px; width: 100%; }
@@ -294,42 +471,170 @@
         <h1>听凭天命 · 幻境夜录</h1>
     </div>
 
-    <!-- 阵容推荐器 -->
-    <div class="recommender-panel">
-        <div class="recommender-header">
-            🔮 幻境推演：专属剧本阵容生成器
-        </div>
-        <div class="recommender-controls">
-            <label>请选择游玩人数：</label>
-            <select id="playerCount">
-                <option value="">-- 选择人数 --</option>
-                <option value="5">5人局 (1恶魔 1爪牙 3好人)</option>
-                <option value="6">6人局 (1恶魔 1爪牙 4好人)</option>
-                <option value="7">7人局 (1恶魔 1爪牙 5好人)</option>
-                <option value="8">8人局 (1恶魔 1爪牙 6好人)</option>
-                <option value="9">9人局 (1恶魔 2爪牙 6好人)</option>
-            </select>
-            <button class="nav-btn" onclick="recommendSetup()" style="padding: 6px 15px; margin-left: 10px;">🎲 随机推演</button>
-        </div>
-        <div id="recommendationResult" class="recommendation-result">
-            <div id="rec-combo-name" style="font-weight: bold; color: #333; margin-bottom: 15px; font-size: 16px;"></div>
-            <div class="setup-row">
-                <div class="setup-label demon">👿 恶魔</div>
-                <div class="setup-cards" id="rec-demon"></div>
+    <!-- 顶级页签切换 -->
+    <div class="main-tabs">
+        <button class="main-tab-btn active" onclick="switchMainTab('characters')">📚 查看所有角色</button>
+        <button class="main-tab-btn" onclick="switchMainTab('events')">✨ 幻境羁绊录</button>
+        <button class="main-tab-btn" onclick="switchMainTab('recommender')">🔮 剧本板子推演</button>
+    </div>
+
+    <!-- 角色查看页签 -->
+    <div id="tab-characters" class="main-tab-content active">
+        <div class="nav-menu" id="navMenu"></div>
+        <div class="cards-container" id="cardsContainer"></div>
+    </div>
+
+    <!-- 剧本生成页签 -->
+    <div id="tab-recommender" class="main-tab-content">
+        <!-- 阵容推荐器 -->
+        <div class="recommender-panel">
+            <div class="recommender-header">
+                🎲 幻境推演：生成本局专属剧本单与真实配置
             </div>
-            <div class="setup-row">
-                <div class="setup-label minion">🩸 爪牙</div>
-                <div class="setup-cards" id="rec-minions"></div>
+            <div class="recommender-controls">
+                <label>请选择游玩人数：</label>
+                <select id="playerCount">
+                    <option value="">-- 选择人数 --</option>
+                    <option value="5">5人局 (1恶魔 1爪牙 3好人)</option>
+                    <option value="6">6人局 (1恶魔 1爪牙 4好人)</option>
+                    <option value="7">7人局 (1恶魔 1爪牙 5好人)</option>
+                    <option value="8">8人局 (1恶魔 1爪牙 6好人)</option>
+                    <option value="9">9人局 (1恶魔 2爪牙 6好人)</option>
+                </select>
+                <button class="nav-btn" onclick="recommendSetup()" style="padding: 6px 15px; margin-left: 10px;">✨ 随机生成本局板子</button>
+                <label style="margin-left: 15px; cursor: pointer; font-size: 14px; user-select: none;">
+                    <input type="checkbox" id="includeEvent" checked style="cursor: pointer;"> 🎲 随机加入事件
+                </label>
             </div>
-            <div class="setup-row">
-                <div class="setup-label good">💠 好人</div>
-                <div class="setup-cards" id="rec-good"></div>
+            
+            <div id="recommendationResult" class="recommendation-result">
+                <div id="rec-combo-name" style="font-weight: bold; color: #333; margin-bottom: 15px; font-size: 16px;"></div>
+                <div class="setup-row">
+                    <div class="setup-label demon">👿 恶魔</div>
+                    <div class="setup-cards" id="rec-demon"></div>
+                </div>
+                <div class="setup-row">
+                    <div class="setup-label minion">🩸 爪牙</div>
+                    <div class="setup-cards" id="rec-minions"></div>
+                </div>
+                <div class="setup-row">
+                    <div class="setup-label good">💠 好人</div>
+                    <div class="setup-cards" id="rec-good"></div>
+                </div>
+                <div id="rec-event-panel" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- 供玩家查看的公开剧本单 -->
+        <div id="publicScriptBoard" class="script-board" style="display: none;">
+            <div class="script-board-title" id="scriptBoardTitle">📜 本局公开剧本卡表 (包含伪装项)</div>
+            <div class="script-grid">
+                <div class="script-col town">
+                    <h3>镇民 (Townsfolk)</h3>
+                    <div id="script-town"></div>
+                </div>
+                <div class="script-col out">
+                    <h3>外来者 (Outsider)</h3>
+                    <div id="script-out"></div>
+                </div>
+                <div class="script-col minion">
+                    <h3>爪牙 (Minion)</h3>
+                    <div id="script-minion"></div>
+                </div>
+                <div class="script-col demon">
+                    <h3>恶魔 (Demon)</h3>
+                    <div id="script-demon"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="nav-menu" id="navMenu"></div>
-    <div class="cards-container" id="cardsContainer"></div>
+    <!-- 幻境羁绊录页签 -->
+    <div id="tab-events" class="main-tab-content">
+        <div class="events-container">
+            <div class="events-header">
+                <h2>✨ 幻境羁绊录 (全局特殊事件)</h2>
+                <p>在推演剧本时，说书人可以随机选择（或指定）以下一个全局事件加入本局游戏。<br>这些事件源自朋友间真实的记忆与灵魂共振，任何人皆可触发。</p>
+            </div>
+
+            <!-- 事件 01 -->
+            <div class="event-card">
+                <div class="event-title">🍔 事件 01：塔斯汀的烫手山芋</div>
+                <div class="event-subtitle">「你必须吃下这口塔斯汀！——全场实物传递机制」</div>
+                <div class="event-desc">
+                    <strong>📜 传奇规则（击鼓传堡）：</strong><br>
+                    游戏开始时，说书人将一个实体的“塔斯汀汉堡标记”交给第一天第一个发言的玩家。<br>
+                    白天讨论期间，持有汉堡的玩家可以通过大喊“你必须尝尝这个！”，将汉堡强行塞给任何一名存活玩家（每天汉堡必须至少易手 3 次）。<br><br>
+                    
+                    <strong>✨ 黄昏结算（普通效果）：</strong><br>
+                    提名环节结束时，最终手里拿着汉堡的玩家必须把它“吃下去”。他今晚会获得<strong>极其精准的情报</strong>（如：直接得知场上某两个人的具体角色）。<br>
+                    但作为拉肚子的代价：他明天一整天处于<strong>【绝对禁言】状态</strong>（不能说话、不能打字、不能做手势），且失去投票权。<br><br>
+
+                    <strong>🔥 潜意识觉醒（隐藏羁绊）：</strong><br>
+                    如果最终吃下汉堡的是原型玩家<strong>【阿水】或【大猩】</strong>：她们异于常人的肠胃吸收了异邦能量！她们不仅获得情报、<strong>不会被禁言</strong>，当晚还会产生“喷射毒气”，让靠近她们的恶魔被熏退（当晚恶魔如果刀她或她邻座，必定空刀）。
+                </div>
+            </div>
+
+            <!-- 事件 02 -->
+            <div class="event-card">
+                <div class="event-title">🧠 事件 02：赛博精神病院</div>
+                <div class="event-subtitle">「欢迎来到确诊日常。今天大家又犯什么病了？——全局怪规机制」</div>
+                <div class="event-desc">
+                    <strong>📜 传奇规则（院长的强制精神污染）：</strong><br>
+                    每天黎明，说书人（院长）会公开宣布一条今天的“全场强制病症”。<br>
+                    <em>（例如：所有人今天发言必须带一句英文 / 所有人只能站着讨论 / 所有人不能说“我”字 / 所有选票变成暗票）。</em><br><br>
+
+                    <strong>✨ 全场约束（普通效果）：</strong><br>
+                    今天白天，任何人只要犯规一次，立刻被护士带走——该玩家今天<strong>失去所有投票权</strong>，且今晚的所有能力强制失效（醉酒）。<br>
+                    如果全场没有任何人犯规（大家都病得很完美），说书人会在黄昏给予奖励：<strong>随机复活一名死去的玩家</strong>！<br><br>
+
+                    <strong>🔥 潜意识觉醒（隐藏羁绊）：</strong><br>
+                    作为老病号的<strong>【阿水、糖哥、老皇、大猩】</strong>，如果他们为了大局，故意严重违反当天的集体病症。他们虽然会被剥夺选票，但他们在夜晚的深渊里获得了清醒：说书人会私下告知他们<strong>“场上哪一位活着的玩家是爪牙”</strong>。
+                </div>
+            </div>
+
+            <!-- 事件 03 -->
+            <div class="event-card">
+                <div class="event-title">📸 事件 03：神图缔造者</div>
+                <div class="event-subtitle">「别动！光线刚好！在我的镜头里，你最真实的底色无处遁形。」</div>
+                <div class="event-desc">
+                    <strong>📜 传奇规则（构图与抓拍）：</strong><br>
+                    每天白天，全场只能有一名玩家可以自告奋勇成为“主摄”。他必须公开挑选两名存活玩家作为他的“双人模特”，并为他们安排站位拍照。<br><br>
+
+                    <strong>✨ 闪光灯的剥夺（普通效果）：</strong><br>
+                    摄影极其耗费精力，主摄今天白天<strong>失去所有的处决投票权</strong>。<br>
+                    当晚，照片冲洗完成，说书人会私下告诉主摄：这两名模特中，<strong>是否有邪恶阵营</strong>（是/否）。<br>
+                    但是，作为被强效闪光灯直射的代价，这两名模特在当晚的<strong>角色能力全部强制失效</strong>（陷入醉酒）。这使得摄影既可以用来验人，也可以当作针对恶魔或强力好人的“群体沉默”战术！<br><br>
+
+                    <strong>🔥 潜意识觉醒（隐藏羁绊）：</strong><br>
+                    如果是<strong>【老皇、老日、陈姐、三金】</strong>这四位真正的“神图产出者”担任主摄，她们的镜头具有化腐朽为神奇的魔力！<br>
+                    她们拍出的神图不仅不会让模特失去技能，反而会为模特加上“绝美滤镜”：这两名模特今晚<strong>获得绝对的【不死之身】（免疫恶魔击杀）</strong>。<br>
+                    且说书人给主摄的冲洗信息将升级为：直接点名这两名模特<strong>具体的阵营分别是什么（如：一好一坏、两好）</strong>！<br>
+                    <em>（全场以为你为了验人，强行把两个人的技能给“闪瞎”废掉了；只有你知道，你是在用自己顶级的出片技术，一边获取最精准的阵营信息，一边暗中给他们套上了免死金牌！）</em>
+                </div>
+            </div>
+
+            <!-- 事件 04 -->
+            <div class="event-card">
+                <div class="event-title">💔 事件 04：好险没谈的恋爱</div>
+                <div class="event-subtitle">「如果不锁死，这个群就散了。——强制共生连理机制」</div>
+                <div class="event-desc">
+                    <strong>📜 传奇规则（全场红线锁死）：</strong><br>
+                    第一天白天讨论结束时，所有存活玩家<strong>必须公开两两配对</strong>（可自由商议），结成“暧昧对象”（奇数局会有 1 人落单）。<br>
+                    一旦锁死，直到游戏结束，这段关系无法解除。<br><br>
+
+                    <strong>✨ 连理共生（普通效果）：</strong><br>
+                    配对后，两人当晚互相得知对方的具体阵营（好/坏）。<br>
+                    但命运纠缠：在随后的游戏里，只要配对中的<strong>其中一人死亡（无论是处决还是被刀），另一个人就会因为“失恋的打击”，永远失去自己的技能</strong>（陷入永久醉酒）。这使得保人逻辑极其复杂。<br><br>
+
+                    <strong>🔥 潜意识觉醒（隐藏羁绊）：</strong><br>
+                    如果是大四角风波的主角<strong>【老日、陈姐、糖哥、克强、老皇】</strong>中的任何一人与他人结成了配对，这段感情不仅没有毒，反而产生了“抗体”。<br>
+                    当这对组合中的一人即将死亡时，另一人可以大喊“我还爱他/她！”，<strong>代为承受这次死亡（原目标活下，你死亡），并且活下来的那个人立刻获得被献祭者的全部技能！</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script>
         // 角色数据库，严格还原图片上的排版与文案
@@ -680,17 +985,33 @@
             }
         ];
 
+        const globalEventsData = {
+            1: { title: "🍔 事件 01：塔斯汀的烫手山芋", subtitle: "「你必须吃下这口塔斯汀！——全场实物传递机制」" },
+            2: { title: "🧠 事件 02：赛博精神病院", subtitle: "「欢迎来到确诊日常。今天大家又犯什么病了？——全局怪规机制」" },
+            3: { title: "📸 事件 03：神图缔造者", subtitle: "「别动！光线刚好！在我的镜头里，你最真实的底色无处遁形。」" },
+            4: { title: "💔 事件 04：好险没谈的恋爱", subtitle: "「如果不锁死，这个群就散了。——强制共生连理机制」" }
+        };
+
         const recommendCombos = [
-            { demon: 1, minions: [6, 3] }, // 暗室者 + 黑典/债主 (延迟杀配合黑称造毒与全图监控)
-            { demon: 2, minions: [4, 9] }, // 赌命者 + 黑历史/玩偶师 (赌命随机杀配合废票和换座干扰)
-            { demon: 3, minions: [5, 7] }, // 影楼魔 + 致幻菌丝/慢语者 (强制处决配合选票剥夺与防抗推)
-            { demon: 4, minions: [6, 1] }, // 原罪录 + 说客/晨哨 (提名下毒配合强制私聊与偷听情报)
-            { demon: 5, minions: [2, 8] }, // 孢子魔 + 庄家/消失者 (黄昏暴毙配合造假信息与无敌抗推)
-            { demon: 6, minions: [8, 7] }, // 血肉塑师 + 消失者/慢语者 (无敌防查验配合双重高难度处决保护)
-            { demon: 7, minions: [2, 9] }, // 完美主义者 + 庄家/玩偶师 (撤销复活配合假信息与位置互换)
-            { demon: 8, minions: [4, 3] }, // 乱流 + 黑历史/债主 (双刀爆发配合定点废票与动向监控)
-            { demon: 9, minions: [1, 5] }  // 无所谓魔 + 晨哨/致幻菌丝 (隐身杀人配合情报截获与强力控场)
+            { demon: 1, minions: [6, 3] }, // 暗室者 + 黑典/债主
+            { demon: 2, minions: [4, 9] }, // 赌命者 + 黑历史/玩偶师
+            { demon: 3, minions: [5, 7] }, // 影楼魔 + 致幻菌丝/慢语者
+            { demon: 4, minions: [6, 1] }, // 原罪录 + 说客/晨哨
+            { demon: 5, minions: [2, 8] }, // 孢子魔 + 庄家/消失者
+            { demon: 6, minions: [8, 7] }, // 血肉塑师 + 消失者/慢语者
+            { demon: 7, minions: [2, 9] }, // 完美主义者 + 庄家/玩偶师
+            { demon: 8, minions: [4, 3] }, // 乱流 + 黑历史/债主
+            { demon: 9, minions: [1, 5] }  // 无所谓魔 + 晨哨/致幻菌丝
         ];
+
+        function switchMainTab(tabId) {
+            document.querySelectorAll('.main-tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            let btn = document.querySelector(`.main-tab-btn[onclick*="${tabId}"]`);
+            if (btn) btn.classList.add('active');
+        }
 
         function init() {
             const navMenu = document.getElementById('navMenu');
@@ -819,7 +1140,61 @@
                 </div>
             `).join('');
 
+            const includeEvent = document.getElementById('includeEvent').checked;
+            const eventPanel = document.getElementById('rec-event-panel');
+            if (includeEvent) {
+                const randomEventId = Math.floor(Math.random() * Object.keys(globalEventsData).length) + 1;
+                const evData = globalEventsData[randomEventId];
+                eventPanel.innerHTML = `
+                    <div style="margin-top: 15px; padding: 12px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px;">
+                        <div style="font-weight: bold; color: #e65100; margin-bottom: 5px;">${evData.title}</div>
+                        <div style="font-size: 13px; color: #795548; margin-bottom: 8px;">${evData.subtitle}</div>
+                        <a href="#" onclick="switchMainTab('events'); return false;" style="font-size: 12px; color: #1976d2; text-decoration: underline;">👉 点击查看事件详细规则</a>
+                    </div>
+                `;
+                eventPanel.style.display = 'block';
+            } else {
+                eventPanel.style.display = 'none';
+            }
+
             resultPanel.style.display = 'block';
+
+            // --- 生成本局专属公开剧本单 (混入伪装项) ---
+            
+            const renderScriptItem = (char, roleData) => `
+                <div class="script-item" onclick="switchMainTab('characters'); setTimeout(()=>showCard(${char.id}), 50);">
+                    <span>${roleData.name}</span>
+                    <span class="proto">${char.prototype}</span>
+                </div>
+            `;
+
+            // 1. 镇民：目前共9个，全部展示 (通常官方剧本是13个，这里根据原型数量全上)
+            let scriptTowns = characters.map(c => renderScriptItem(c, c.roles.townsfolk));
+            document.getElementById('script-town').innerHTML = scriptTowns.join('');
+
+            // 2. 外来者：真实的外来者 + 随机假外来者 = 凑齐4个 (或随场上数量调整，标准板子通常展示4个)
+            let actualOutsiderIds = goodResults.filter(g => g.type === 'out').map(g => g.char.id);
+            let poolOutsiders = characters.filter(c => !actualOutsiderIds.includes(c.id)).sort(() => 0.5 - Math.random());
+            let targetOutCount = Math.max(4, actualOutsiderIds.length);
+            let finalOutsiders = characters.filter(c => actualOutsiderIds.includes(c.id))
+                                   .concat(poolOutsiders.slice(0, targetOutCount - actualOutsiderIds.length))
+                                   .sort((a,b) => a.id - b.id);
+            document.getElementById('script-out').innerHTML = finalOutsiders.map(c => renderScriptItem(c, c.roles.outsider)).join('');
+
+            // 3. 爪牙：真实的爪牙 + 随机假爪牙 = 凑齐4个
+            let poolMinions = characters.filter(c => !selectedMinionIds.includes(c.id)).sort(() => 0.5 - Math.random());
+            let targetMinCount = Math.max(4, selectedMinionIds.length);
+            let finalMinions = characters.filter(c => selectedMinionIds.includes(c.id))
+                                 .concat(poolMinions.slice(0, targetMinCount - selectedMinionIds.length))
+                                 .sort((a,b) => a.id - b.id);
+            document.getElementById('script-minion').innerHTML = finalMinions.map(c => renderScriptItem(c, c.roles.minion)).join('');
+
+            // 4. 恶魔：真实的恶魔 + 随机假恶魔 = 凑齐4个
+            let poolDemons = characters.filter(c => c.id !== demonChar.id).sort(() => 0.5 - Math.random());
+            let finalDemons = [demonChar].concat(poolDemons.slice(0, 3)).sort((a,b) => a.id - b.id);
+            document.getElementById('script-demon').innerHTML = finalDemons.map(c => renderScriptItem(c, c.roles.demon)).join('');
+
+            document.getElementById('publicScriptBoard').style.display = 'block';
         }
 
         init();
