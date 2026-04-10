@@ -98,22 +98,22 @@
         /* 公开剧本表单样式 */
         .script-board {
             background: #fff;
-            border: 1px solid #e0e0e0;
+            border: 2px solid #a5d6a7;
             border-radius: 12px;
-            padding: 25px 30px;
+            padding: 30px;
             width: 100%;
             box-sizing: border-box;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(76,175,80,0.1);
+            position: relative;
+            display: none;
         }
         
         .script-board-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            text-align: center;
+            color: #2e7d32;
             margin-bottom: 20px;
-            color: #333;
-            border-bottom: 1px dashed #eee;
+            border-bottom: 1px dashed #a5d6a7;
             padding-bottom: 15px;
         }
         
@@ -177,48 +177,103 @@
         .nav-btn:hover { border-color: #ccc; }
         .nav-btn.active { background: #333; color: #fff; border-color: #333; }
 
-        /* 阵容推荐器模块 */
-        .recommender-panel {
+        /* 阵容推荐器控制台 */
+        .recommender-controls-card {
             background: #fff;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 25px 30px;
+            padding: 24px 30px;
             max-width: 1000px;
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             box-sizing: border-box;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
         .recommender-header {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 15px;
         }
 
         .recommender-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .recommender-controls select {
-            padding: 8px 15px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .control-group select {
+            padding: 10px 16px;
+            font-size: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             background: #fafafa;
             cursor: pointer;
+            outline: none;
+            min-width: 220px;
         }
 
-        .recommendation-result {
-            display: none;
-            background: #fbfaf8;
-            padding: 20px;
+        .generate-btn {
+            background: #2c3e50;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
             border-radius: 8px;
-            border: 1px solid #eee;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .generate-btn:hover { background: #1a252f; transform: translateY(-1px); }
+
+        /* 推荐结果：说书人私密区 */
+        .recommender-panel {
+            background: #fffafb;
+            border: 2px solid #ffcdd2;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(229,115,115,0.1);
+            position: relative;
+            display: none;
+        }
+
+        .panel-badge {
+            position: absolute;
+            top: -14px;
+            left: 30px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .private-badge { background: #d32f2f; color: #fff; }
+        .public-badge { background: #2e7d32; color: #fff; }
+
+        .private-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #ffcdd2;
+            padding-bottom: 15px;
         }
 
         .setup-row {
@@ -373,7 +428,41 @@
         }
 
         @media (max-width: 768px) {
-            .sub-roles-grid { grid-template-columns: 1fr; }
+            body { padding: 20px 12px; }
+            .main-header h1 { font-size: 26px; }
+            
+            .main-tabs { flex-wrap: wrap; gap: 10px; border-bottom: none; }
+            .main-tab-btn { flex: 1 1 calc(33.333% - 10px); min-width: 110px; font-size: 15px; padding: 12px 8px; border: 1px solid var(--border-color); background: #fff; }
+            .main-tab-btn.active { border-color: #333; background: #e8e8e8; }
+            
+            .nav-menu { gap: 8px; }
+            .nav-btn { font-size: 14px; padding: 10px 16px; flex: 1 1 auto; min-width: 70px; }
+            
+            .sub-roles-grid { grid-template-columns: 1fr; gap: 16px; }
+            .sub-role-card { padding: 16px; }
+            .role-title { font-size: 20px; flex-wrap: wrap; gap: 6px; }
+            
+            .recommender-controls-card { padding: 16px; }
+            .recommender-controls { flex-direction: column; align-items: stretch; gap: 16px; }
+            .control-group { flex-direction: column; align-items: stretch; gap: 8px; }
+            .generate-btn { margin-left: 0; width: 100%; }
+            .panel-badge { top: -14px; left: 16px; }
+            .recommender-panel, .script-board { padding: 25px 16px 16px 16px; }
+            
+            .setup-row { flex-direction: column; margin-bottom: 20px; }
+            .setup-label { width: 100%; margin-bottom: 10px; padding-top: 0; }
+            
+            .script-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            
+            .event-card { padding: 16px; margin-bottom: 16px; }
+            .event-title { font-size: 18px; align-items: flex-start; line-height: 1.4; }
+            .event-subtitle { font-size: 13px; margin-bottom: 15px; padding-bottom: 10px; }
+            .event-desc { font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .main-tab-btn { flex: 1 1 100%; }
+            .script-grid { grid-template-columns: 1fr; }
         }
 
         .sub-role-card {
@@ -486,29 +575,64 @@
 
     <!-- 剧本生成页签 -->
     <div id="tab-recommender" class="main-tab-content">
-        <!-- 阵容推荐器 -->
-        <div class="recommender-panel">
+        <!-- 阵容推荐器控制台 -->
+        <div class="recommender-controls-card">
             <div class="recommender-header">
-                🎲 幻境推演：生成本局专属剧本单与真实配置
+                🎲 幻境推演控制台
             </div>
             <div class="recommender-controls">
-                <label>请选择游玩人数：</label>
-                <select id="playerCount">
-                    <option value="">-- 选择人数 --</option>
-                    <option value="5">5人局 (1恶魔 1爪牙 3好人)</option>
-                    <option value="6">6人局 (1恶魔 1爪牙 4好人)</option>
-                    <option value="7">7人局 (1恶魔 1爪牙 5好人)</option>
-                    <option value="8">8人局 (1恶魔 1爪牙 6好人)</option>
-                    <option value="9">9人局 (1恶魔 2爪牙 6好人)</option>
-                </select>
-                <button class="nav-btn" onclick="recommendSetup()" style="padding: 6px 15px; margin-left: 10px;">✨ 随机生成本局板子</button>
-                <label style="margin-left: 15px; cursor: pointer; font-size: 14px; user-select: none;">
-                    <input type="checkbox" id="includeEvent" checked style="cursor: pointer;"> 🎲 随机加入事件
-                </label>
+                <div class="control-group">
+                    <label>游玩人数：</label>
+                    <select id="playerCount">
+                        <option value="">-- 请选择游玩人数 --</option>
+                        <option value="5">5人局 (1恶魔 1爪牙 3好人)</option>
+                        <option value="6">6人局 (1恶魔 1爪牙 4好人)</option>
+                        <option value="7">7人局 (1恶魔 1爪牙 5好人)</option>
+                        <option value="8">8人局 (1恶魔 1爪牙 6好人)</option>
+                        <option value="9">9人局 (1恶魔 2爪牙 6好人)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px; font-weight: normal;">
+                        <input type="checkbox" id="includeEvent" checked style="cursor: pointer; width: 18px; height: 18px;"> 
+                        🎲 随机加入事件
+                    </label>
+                </div>
+                <button class="generate-btn" onclick="recommendSetup()">✨ 立即生成剧本板子</button>
             </div>
+        </div>
+
+        <div id="recommender-outputs" style="display: none; width: 100%; max-width: 1000px; flex-direction: column; gap: 20px;">
             
-            <div id="recommendationResult" class="recommendation-result">
-                <div id="rec-combo-name" style="font-weight: bold; color: #333; margin-bottom: 15px; font-size: 16px;"></div>
+            <!-- 供玩家查看的公开剧本单 -->
+            <div id="publicScriptBoard" class="script-board">
+                <div class="panel-badge public-badge">📢 玩家公开区</div>
+                <div class="script-board-title" id="scriptBoardTitle">📜 发给所有玩家：本局公开剧本单 (包含伪装项)</div>
+                <div id="rec-event-panel" style="display: none; margin-bottom: 20px;"></div>
+                <div class="script-grid">
+                    <div class="script-col town">
+                        <h3>镇民 (Townsfolk)</h3>
+                        <div id="script-town"></div>
+                    </div>
+                    <div class="script-col out">
+                        <h3>外来者 (Outsider)</h3>
+                        <div id="script-out"></div>
+                    </div>
+                    <div class="script-col minion">
+                        <h3>爪牙 (Minion)</h3>
+                        <div id="script-minion"></div>
+                    </div>
+                    <div class="script-col demon">
+                        <h3>恶魔 (Demon)</h3>
+                        <div id="script-demon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 说书人私密区 -->
+            <div id="recommendationResult" class="recommender-panel">
+                <div class="panel-badge private-badge">⚠️ 说书人专属</div>
+                <div id="rec-combo-name" class="private-title">🔮 本局真实配置 (切勿向玩家泄露)</div>
                 <div class="setup-row">
                     <div class="setup-label demon">👿 恶魔</div>
                     <div class="setup-cards" id="rec-demon"></div>
@@ -521,31 +645,8 @@
                     <div class="setup-label good">💠 好人</div>
                     <div class="setup-cards" id="rec-good"></div>
                 </div>
-                <div id="rec-event-panel" style="display: none;"></div>
             </div>
-        </div>
-
-        <!-- 供玩家查看的公开剧本单 -->
-        <div id="publicScriptBoard" class="script-board" style="display: none;">
-            <div class="script-board-title" id="scriptBoardTitle">📜 本局公开剧本卡表 (包含伪装项)</div>
-            <div class="script-grid">
-                <div class="script-col town">
-                    <h3>镇民 (Townsfolk)</h3>
-                    <div id="script-town"></div>
-                </div>
-                <div class="script-col out">
-                    <h3>外来者 (Outsider)</h3>
-                    <div id="script-out"></div>
-                </div>
-                <div class="script-col minion">
-                    <h3>爪牙 (Minion)</h3>
-                    <div id="script-minion"></div>
-                </div>
-                <div class="script-col demon">
-                    <h3>恶魔 (Demon)</h3>
-                    <div id="script-demon"></div>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -1085,9 +1186,10 @@
         function recommendSetup() {
             const countStr = document.getElementById('playerCount').value;
             const resultPanel = document.getElementById('recommendationResult');
+            const outputsContainer = document.getElementById('recommender-outputs');
             
             if (!countStr) {
-                resultPanel.style.display = 'none';
+                outputsContainer.style.display = 'none';
                 return;
             }
             const count = parseInt(countStr);
@@ -1117,7 +1219,7 @@
                 }
             });
 
-            document.getElementById('rec-combo-name').textContent = `🔮 幻境推演结果 (${count}人局)`;
+            document.getElementById('rec-combo-name').textContent = `🔮 本局真实配置 (${count}人局 - 请勿向玩家泄露)`;
 
             document.getElementById('rec-demon').innerHTML = `
                 <div class="setup-chip demon-chip" onclick="showCard(${demonChar.id})">
@@ -1157,6 +1259,7 @@
                 eventPanel.style.display = 'none';
             }
 
+            outputsContainer.style.display = 'flex';
             resultPanel.style.display = 'block';
 
             // --- 生成本局专属公开剧本单 (混入伪装项) ---
