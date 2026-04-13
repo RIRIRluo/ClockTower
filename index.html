@@ -29,8 +29,6 @@
 
             --ability-bg: #faf8f5;
             --accent-red: #d35427;
-            --accent-blue: #005b9f;
-            --accent-yellow: #fbbd23;
 
             /* 字体排版 */
             --font-serif: "Noto Serif SC", "Songti SC", "Georgia", "Times New Roman", serif;
@@ -349,7 +347,7 @@
         .setup-row:last-child { margin-bottom: 0; }
 
         .setup-label {
-            width: 75px;
+            width: 95px;
             font-family: var(--font-sans);
             font-weight: bold;
             flex-shrink: 0;
@@ -471,16 +469,6 @@
             gap: 8px;
         }
         
-        .event-subtitle {
-            font-family: var(--font-serif);
-            font-size: 15px;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px dotted var(--border-color);
-        }
-        
         .event-desc {
             font-size: 15px;
             line-height: 1.7;
@@ -515,22 +503,6 @@
             margin-bottom: 16px;
             opacity: 0.85;
             font-style: italic;
-        }
-        
-        .event-list {
-            margin: 12px 0 15px 0;
-            padding-left: 20px;
-        }
-        
-        .event-list li {
-            margin-bottom: 12px;
-        }
-        
-        .event-list em {
-            color: var(--text-muted);
-            font-style: normal;
-            font-family: var(--font-mono);
-            font-size: 14px;
         }
 
         /* 角色大容器 */
@@ -602,7 +574,6 @@
             
             .event-card { padding: 16px; margin-bottom: 16px; }
             .event-title { font-size: 18px; align-items: flex-start; line-height: 1.4; }
-            .event-subtitle { font-size: 13px; margin-bottom: 15px; padding-bottom: 10px; }
             .event-desc { font-size: 14px; }
         }
 
@@ -763,11 +734,11 @@
                     <label>游玩人数：</label>
                     <select id="playerCount">
                         <option value="">-- 请选择游玩人数 --</option>
-                        <option value="5">5人局 (1恶魔 1爪牙 3好人)</option>
-                        <option value="6">6人局 (1恶魔 1爪牙 4好人)</option>
-                        <option value="7">7人局 (1恶魔 1爪牙 5好人)</option>
-                        <option value="8">8人局 (1恶魔 1爪牙 6好人)</option>
-                        <option value="9">9人局 (1恶魔 2爪牙 6好人)</option>
+                        <option value="5">5人局 (3镇民 0外来者 1爪牙 1恶魔)</option>
+                        <option value="6">6人局 (3镇民 1外来者 1爪牙 1恶魔)</option>
+                        <option value="7">7人局 (5镇民 0外来者 1爪牙 1恶魔)</option>
+                        <option value="8">8人局 (5镇民 1外来者 1爪牙 1恶魔)</option>
+                        <option value="9">9人局 (5镇民 2外来者 1爪牙 1恶魔)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -823,6 +794,15 @@
                     <div class="setup-label good">💠 好人</div>
                     <div class="setup-cards" id="rec-good"></div>
                 </div>
+                
+                <div class="setup-row" style="margin-top: 15px;">
+                    <div class="setup-label out">🎭 恶魔伪装</div>
+                    <div class="setup-cards" id="rec-bluffs" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+                </div>
+                <div class="setup-row" style="margin-top: 10px;">
+                    <div class="setup-label" style="background: #455a64; color: white; padding: 4px 6px; border-radius: 4px; text-align: center;">🌙 唤醒提示</div>
+                    <div class="setup-cards" id="rec-night-order" style="font-size: 13px; color: var(--text-main); display: flex; flex-direction: column; gap: 4px; padding-top: 4px;"></div>
+                </div>
             </div>
             
         </div>
@@ -847,11 +827,11 @@
                         <div class="event-reasoning">这是一次源自深夜外卖的离奇传承。那个被硬塞过来的中国汉堡，不仅带着异邦的神秘余温，还带着让人无法拒绝的魔力。没人想吃，但总有人得吃。</div>
                         
                         <div class="event-section-title">普通效果：</div>
-                        提名环节结束时，最终手里拿着汉堡的玩家必须把它“吃下去”。他今晚会获得<strong>极其精准的情报</strong>（如：直接得知场上某两个人的具体角色）。但作为代价：他明天一整天处于<strong>【绝对禁言】</strong>状态（不能说话、不能打字、不能做手势），且失去投票权。<br>
+                        提名环节结束时，最终手里拿着汉堡的玩家必须把它“吃下去”。他今晚会获得<strong>极其精准的情报</strong>（直接得知上一个把汉堡传给他的人，其具体的角色类型：镇民/外来者/爪牙/恶魔）。但作为代价：他明天一整天<strong>【禁止发言】</strong>（仅不能参与白天的讨论发言，但可以做手势），且他在明天白天的投票不计入总数。<br>
                         <div class="event-reasoning">获得异邦神秘力量的代价是拉肚子一整天，只能在厕所里禁言。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
-                        如果最终吃下汉堡的是原型玩家<strong>【阿水】</strong>或<strong>【大猩】</strong>：她们不仅获得情报、<strong>不会被禁言</strong>，当晚还会产生“喷射毒气”，让靠近她们的恶魔被熏退（当晚恶魔如果刀她或她邻座，必定<strong>空刀</strong>）。<br>
+                        如果最终吃下汉堡的是原型玩家<strong>【阿水】</strong>或<strong>【大猩】</strong>：她们不仅获得情报、<strong>明天可以正常发言和投票</strong>，当晚还会产生“喷射毒气”，让靠近她们的恶魔被熏退（当晚恶魔如果刀她或她邻座，必定<strong>空刀</strong>）。<br>
                         <div class="event-reasoning">她们异于常人的肠胃完美吸收了这股异邦能量。</div>
                     </div>
                 </div>
@@ -868,7 +848,7 @@
                         <div class="event-reasoning">在这个所有人都不太正常的病房里，能够确诊别人的精神状态本身就是一种特权。</div>
 
                         <div class="event-section-title">普通效果：</div>
-                        今天白天，任何人只要犯规一次，立刻被护士带走——该玩家今天<strong>失去所有投票权</strong>，且今晚的所有能力<strong>强制失效</strong>（醉酒）。如果全场没有任何人犯规（大家都病得很完美），说书人会在黄昏给予奖励：<strong>随机复活一名死去的玩家</strong>！<br>
+                        今天白天，任何人只要犯规一次，立刻被护士带走——该玩家在今天白天的投票不计入总数，且今晚<strong>陷入醉酒</strong>（能力失效，且可能得到虚假信息）。如果全场没有任何人犯规（大家都病得很完美），说书人会在黄昏给予奖励：<strong>随机复活一名死去的玩家</strong>！<br>
                         <div class="event-reasoning">每天都会爆发新的集体癔症，而保持清醒的代价，往往比发疯更沉重。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
@@ -889,12 +869,12 @@
                         <div class="event-reasoning">这台相机的取景器，是幻境中最危险的刑具。闪光灯亮起的一瞬间，能定格下最美的皮囊，也能剥夺走最深的秘密。</div>
 
                         <div class="event-section-title">普通效果：</div>
-                        摄影极其耗费精力，主摄今天白天<strong>失去所有的处决投票权</strong>。当晚，照片冲洗完成，说书人会私下告诉主摄：这两名模特中，<strong>是否有邪恶阵营</strong>（是/否）。但是，作为被强效闪光灯直射的代价，这两名模特在当晚的<strong>角色能力全部强制失效</strong>（陷入醉酒）。这使得摄影既可以用来验人，也可以当作针对恶魔或强力好人的“群体沉默”战术！<br>
-                        <div class="event-reasoning">出片极度耗费精力，而为了追求极致的光影，模特们也被折腾得精疲力尽。</div>
+                        摄影极其耗费精力，主摄今天白天的投票不计入总数，且在当晚会<strong>陷入醉酒</strong>。当晚，照片冲洗完成，说书人会私下告诉主摄：这两名模特中，<strong>是否有邪恶阵营</strong>（是/否）。（注意：因为主摄处于醉酒状态，说书人给出的这个验人结果<strong>可能是假的</strong>！）<br>
+                        <div class="event-reasoning">出片极度耗费精力，这会导致摄影师产生幻觉，冲洗出的照片可能会欺骗自己的眼睛。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
-                        如果是<strong>【老皇、老日、陈姐、三金】</strong>这四位真正的“神图产出者”担任主摄，她们的镜头具有化腐朽为神奇的魔力！她们拍出的神图不仅不会让模特失去技能，反而会为模特加上“绝美滤镜”：这两名模特今晚获得绝对的<strong>【不死之身】</strong>（免疫恶魔击杀）。且说书人给主摄的冲洗信息将升级为：直接点名这两名模特<strong>具体的阵营分别是什么</strong>（如：一好一坏、两好）！<br>
-                        <div class="event-reasoning">全场以为你为了验人强行把两个人的技能给“闪瞎”废掉了，只有你知道，你是在用自己顶级的出片技术一边获取最精准的阵营信息，一边暗中给他们套上了免死金牌！</div>
+                        如果是<strong>【老皇、老日、陈姐、三金】</strong>这四位真正的“神图产出者”担任主摄，她们的镜头具有化腐朽为神奇的魔力！她们不仅<strong>不会醉酒</strong>（必定得到真实信息），而且拍出的神图会为模特加上“绝美滤镜”：这两名模特今晚获得绝对的<strong>【不死之身】</strong>（免疫恶魔击杀）。且说书人给主摄的冲洗信息将升级为：直接点名这两名模特<strong>具体的阵营分别是什么</strong>（如：一好一坏、两好）！<br>
+                        <div class="event-reasoning">全场以为你为了验人把自己给累疯了拿了假信息，只有你知道，你是在用自己顶级的出片技术一边获取最精准的阵营信息，一边暗中给他们套上了免死金牌！</div>
                     </div>
                 </div>
 
@@ -910,7 +890,7 @@
                         <div class="event-reasoning">那些在岁月里差点交错的红线，一旦被强行系紧，就变成了同生共死的诅咒。感谢大家当年保持了理智。</div>
 
                         <div class="event-section-title">普通效果：</div>
-                        配对后，两人当晚<strong>互相得知对方的具体阵营</strong>（好/坏）。但命运纠缠：在随后的游戏里，只要配对中的其中一人死亡（无论是处决还是被刀），另一个人就会因为“失恋的打击”，永远<strong>失去自己的技能</strong>（陷入永久醉酒）。这使得保人逻辑极其复杂。<br>
+                        配对后，两人当晚必须<strong>秘密向对方互交自己的底牌</strong>（可真可假）。但命运纠缠：在随后的游戏里，只要配对中的其中一人死亡（无论是处决还是被刀），另一个人就会因为“失恋的打击”，<strong>陷入永久醉酒</strong>（能力失效，且可能得到虚假信息）。这使得保人逻辑和伪装博弈极其复杂。<br>
                         <div class="event-reasoning">强制恋爱没有好下场，一个人受伤，另一个人只会跟着一起完蛋。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
@@ -927,19 +907,20 @@
                     </div>
                     <div class="event-desc">
                         <div class="event-section-title">机制：</div>
-                        每天白天，任何人都可以随时大喊：“我要确诊！对不起，我有病！”（每天仅限<strong>第一个</strong>喊出这句话的人有效，成为当天的“确诊者”）。<br>
-                        但注意，如果当天的“确诊者”正好是<strong>【老日】</strong>或<strong>【陈姐】</strong>，而<strong>【克强】</strong>还存活，【克强】可以随时大喊：“你没病，我才有病！”，强行把“确诊者”的身份和以下所有效果抢夺过来。<br>
-                        <div class="event-reasoning">当年拯救了沙拉屋的破防宣言，如今变成了全场争夺的特权。但无论你们怎么抢，真正的精神状态之王永远在暗中凝视。</div>
+                        每天白天，任何人都可以随时大声向全场宣布：“都别吵了，我有病！”，成为当天的“确诊者”（每天仅限第一个喊出这句话的人有效）。<br>
+                        “确诊者”今天白天可以公开强行<strong>“霸占”</strong>一名存活玩家——今天白天，被霸占的人<strong>绝对不许和任何人私聊</strong>，只能跟在确诊者身边。<br>
+                        <div class="event-reasoning">当年拯救了沙拉屋的破防宣言，如今变成了让人窒息的控制欲。只要我发病了，你就只能看着我。</div>
 
                         <div class="event-section-title">普通效果：</div>
-                        “确诊者”在今天白天获得了“肆无忌惮”的特权：他可以<strong>强行旁听场上任何人的私聊</strong>（别人不能赶他走），且在最终处决投票时，他的票算作<strong> 2 票</strong>。<br>
-                        但代价是到了夜晚，他会因为“病情发作”而在门外疯狂砸门，吸引所有的仇恨——他今晚会强制成为恶魔的<strong>唯一合法击杀目标</strong>（如果恶魔不刀他，恶魔今晚只能空刀）。<br>
-                        <div class="event-reasoning">白天拥有最高特权四处作妖，晚上则化身“避雷针”强行替好人挡刀。这是一种搞笑的自我牺牲/钓鱼机制。</div>
+                        到了夜晚，因为这种极端的控制欲消耗了太多精力，“确诊者”今晚会<strong>陷入醉酒</strong>（能力失效，且可能得到虚假信息）。<br>
+                        但他并非一无所获。作为补偿，说书人会在当晚私下告诉确诊者：<strong>你今天霸占的这个人，是否是邪恶阵营？</strong>（注意：因为确诊者处于醉酒状态，说书人给的这个结果<strong>可能是假的</strong>！）<br>
+                        <div class="event-reasoning">这是一个极其硬核的机制：你可以牺牲自己一晚上的技能，去强行限制一个怀疑对象的发言，并换取一次绝对真实的验人。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
-                        如果最终拿到确诊名额的是当年沙拉屋风暴中心的<strong>【克强】</strong>：<br>
-                        不仅享有白天的特权，晚上的副作用也将发生奇妙反转！当恶魔被迫来刀你时，恶魔会因为受不了当年你带回来的那个“疯狂前任式砸门”而精神崩溃——你今晚<strong>不会死</strong>（免疫击杀），且不仅如此，为了平息你的发病，说书人会在明早私下告诉你：昨晚那个试图杀你却被你折磨疯了的恶魔，他的<strong>具体座位号</strong>是多少！<br>
-                        <div class="event-reasoning">这股险些摧毁友谊的终极疯狂力量，一旦为你所用，就连恶魔也只能退避三舍。</div>
+                        如果当天的确诊者是<strong>【克强】</strong>，而他强行霸占的目标正好是当年的室友<strong>【老日】</strong>或<strong>【陈姐】</strong>：<br>
+                        当年的那句破防坦白将打破这种精神内耗！【克强】今晚不仅<strong>不会失去技能</strong>（白嫖一次验人），而且他的查验将升级：说书人会直接告诉克强，老日/陈姐的<strong>具体角色是什么</strong>！<br>
+                        同时，被霸占的【老日/陈姐】也会因为这种默契的保护，在当晚获得<strong>免疫恶魔击杀</strong>的护盾。<br>
+                        <div class="event-reasoning">明面上是克强发病把室友禁足了一天，且大家以为克强技能废了；暗地里克强不仅没废技能，还拿到了队友底牌，并给室友套上了免死金牌！</div>
                     </div>
                 </div>
         </div>
@@ -955,8 +936,8 @@
                         name: "遗容师", enName: "The Mortician", type: "镇民", badgeClass: "badge-town",
                         quote: "「他为死者整理仪容，也为生者整理真相。」",
                         abilities: [
-                            { title: "能力：遗容存档", desc: "每晚，你可以选择一名死亡玩家。<br>说书人会告知你该玩家在死亡时，其相邻两座（存活或死亡均可）共有几名邪恶阵营玩家（0、1或2）。" },
-                            { title: "被动：口癖规则", desc: "每次在白天公开分享你的信息前，你必须先大声『倒吸一口凉气』。<br>如果你忘记了，你当晚（接下来的夜晚）会处于醉酒状态（得到假信息）。" }
+                            { title: "能力：遗容存档", desc: "除首夜外的每晚，你可以选择一名死亡玩家。<br>说书人会告知你该玩家在死亡时，其相邻两座（存活或死亡均可）共有几名邪恶阵营玩家（0、1或2）。" },
+                            { title: "被动：口癖规则", desc: "每次在白天公开分享你的信息前，你必须先大声『倒吸一口凉气』。<br>如果你忘记了，你当晚（接下来的夜晚）会陷入醉酒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「(倒吸凉气) ......有意思。这个角度，我见过。」"
                     },
@@ -964,7 +945,7 @@
                         name: "碎镜人", enName: "The Shatterer", type: "外来者", badgeClass: "badge-out",
                         quote: "「他记录一切，但他的镜头总在最关键的时刻碎掉。」",
                         abilities: [
-                            { title: "能力：坏掉的相机", desc: "每个白天，你必须公开『拍摄』（指定）一名玩家。<br>该玩家在当晚有50%的概率会处于醉酒状态（能力失效或得到假信息），而你和该玩家都不会知道相机是否真的『坏了』。" }
+                            { title: "能力：坏掉的相机", desc: "每个白天，你必须公开『拍摄』（指定）一名玩家。<br>该玩家在当晚有50%的概率会陷入醉酒（能力失效，且可能得到虚假信息），而你和该玩家都不会知道相机是否真的『坏了』。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「(倒吸凉气) ......我就知道。那张照片是虚的。」"
                     },
@@ -981,7 +962,7 @@
                         name: "暗室者", enName: "The Darkroom", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「他把所有人都拍进了底片里。只有他知道，哪张会曝光。」",
                         abilities: [
-                            { title: "能力：曝光", desc: "每晚选一名玩家杀死。此外，每局一次，你可以选择「延迟曝光」——放弃当晚的击杀，改为标记一名玩家。该玩家不在当晚死亡，而是在你指定的『下一个白天』或『下下个白天』开始时猝死，说书人不作任何预告。" }
+                            { title: "能力：曝光", desc: "除首夜外的每晚，选择一名玩家杀害。此外，每局一次，你可以选择「延迟曝光」——放弃当晚的击杀，改为标记一名玩家。该玩家不在当晚死亡，而是在你指定的『下一个白天』或『下下个白天』开始时猝死，说书人不作任何预告。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「(长长倒吸一口凉气) ......底片早就冲好了。」"
                     }
@@ -1019,7 +1000,7 @@
                         name: "赌命者", enName: "The High Roller", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她每晚都在下注。赌注是别人的命。」",
                         abilities: [
-                            { title: "能力：全押", desc: "每晚，你必须选择两名不同的玩家（作为赌注）。说书人会根据当前局势（通常偏向对邪恶阵营最有利的结果）从这两人中选择一名死亡。你无法确定究竟是谁会死，直到次日黎明。" }
+                            { title: "能力：全押", desc: "除首夜外的每晚，你必须选择两名不同的玩家（作为赌注）。说书人会根据当前局势（通常偏向对邪恶阵营最有利的结果）从这两人中选择一名死亡。你无法确定究竟是谁会死，直到次日黎明。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我从来不知道哪张牌会赢。但我一直在发牌。」"
                     }
@@ -1032,7 +1013,7 @@
                         name: "日历匠", enName: "The Almanac Keeper", type: "镇民", badgeClass: "badge-town",
                         quote: "「她把每一个人的脸都保存下来。她比任何人都更怕遗忘。」",
                         abilities: [
-                            { title: "能力：留存", desc: "每晚，你可以得知今天白天被处决玩家的具体角色。如果你在他们被处决前（私下向说书人）正确预测了他们的名字，说书人还会额外告诉你他们生前最后一次获得的夜间信息（如果有的话）。" }
+                            { title: "能力：留存", desc: "除首夜外的每晚，你可以得知今天白天被处决玩家的具体角色。如果你在他们被处决前（私下向说书人）正确预测了他们的名字，说书人还会额外告诉你他们生前最后一次获得的夜间信息（如果有的话）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我本来想给你们留一份今年的日历的。」"
                     },
@@ -1056,7 +1037,7 @@
                         name: "影楼魔", enName: "The Portrait Demon", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她每年都为自己留下一张画像。她想被记住。但没有人知道，画像里藏着诅咒。」",
                         abilities: [
-                            { title: "能力：定格", desc: "每晚不杀人，而是选择一名玩家「入画」（使其失去能力）。当场上有三名玩家处于「入画」状态时，次日白天这三名玩家必须同时被处决（跳过正常的提名投票阶段），随后入画状态清零。你每局仅有一次机会能在夜晚直接进行一次普通击杀。" }
+                            { title: "能力：定格", desc: "除首夜外的每晚，选择一名玩家杀害；或者选择不杀人，而是令一名存活玩家「入画」（陷入中毒，能力失效且可能得假信息）。当场上累计有两名玩家处于「入画」状态时，明天的白天将跳过正常的提名阶段，这两名玩家会被强制同时处决，随后入画状态清零。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我只是想把你们都留下来。」"
                     }
@@ -1069,24 +1050,24 @@
                         name: "墓志铭", enName: "The Epitaph", type: "镇民", badgeClass: "badge-town",
                         quote: "「她什么都记得。包括你以为没人注意到的那一句。」",
                         abilities: [
-                            { title: "能力：旧账", desc: "每天夜晚，你可以查验一名今天白天参与过『提名』或被『提名』的玩家，说书人会告诉你他是否为邪恶阵营。" },
-                            { title: "被动：蛐蛐", desc: "每个白天限一次，你可以公开大声宣布你认为某位玩家的具体角色。如果你猜对了，你今晚免疫恶魔的袭击；如果猜错，你今晚会中毒（得到假信息）。" }
+                            { title: "能力：旧账", desc: "除首夜外的每晚，你可以查验一名今天白天参与过『提名』或被『提名』的玩家，说书人会告诉你他是否为邪恶阵营。" },
+                            { title: "被动：蛐蛐", desc: "每个白天限一次，你可以公开大声宣布你认为某位玩家的具体角色。如果你猜对了，你今晚免疫恶魔的袭击；如果猜错，你今晚会陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我还有好多没刻完。顺便，你这刀法真粗糙。」"
                     },
                     outsider: {
-                        name: "饕餮舌", enName: "The Glutton's Tongue", type: "外来者", badgeClass: "badge-out",
-                        quote: "「她对真相的渴望和对食物的渴望一样——必须按顺序来，且永远不够。」",
+                        name: "饿死鬼", enName: "The Famished", type: "外来者", badgeClass: "badge-out",
+                        quote: "「她对真相的渴望和对食物的渴望一样——谁喂她第一口，她就是谁的人。」",
                         abilities: [
-                            { title: "能力：贪食", desc: "你以为自己是一个能获取信息的镇民，但你实际上是饕餮舌。你每晚获得的所谓『信息』，其实是窃取了另一名真正镇民当晚该得的信息。而那个无辜的镇民当晚将什么也得不到（能力失效）。" }
+                            { title: "能力：贪食与同化", desc: "你每晚获得的『信息』，其实是窃取了另一名真正镇民当晚该得的信息（该镇民能力失效）。此外，如果某个夜晚有邪恶玩家对你使用了能力（无论好坏），你立刻转变为他的阵营，且他的这次能力对你无效。" }
                         ],
-                        quoteLabel: "死亡台词", deathQuote: "「还没吃够......这血腥味太没层次感了。」"
+                        quoteLabel: "死亡台词", deathQuote: "「还没吃够......这味道有点奇怪，但我喜欢。」"
                     },
                     minion: {
                         name: "黑历史", enName: "The Black Record", type: "爪牙", badgeClass: "badge-minion",
                         quote: "「她什么都记得。包括你不想让人知道的那些。」",
                         abilities: [
-                            { title: "能力：翻旧账", desc: "每个白天限一次，你可以公开揭露一名存活玩家的『黑历史』（猜测其具体角色）。如果猜中，该玩家当晚失去能力，且次日白天投票时他的选票无效。每局游戏你最多可以猜错三次，第三次猜错时你立刻被处决。" },
+                            { title: "能力：翻旧账", desc: "每个白天限一次，你可以公开揭露一名存活玩家的『黑历史』（猜测其具体角色）。如果猜中，该玩家当晚失去能力，且次日白天他的选票不计入总数。每局游戏你最多可以猜错三次，第三次猜错时你立刻被处决。" },
                             { title: "被动：豆腐心", desc: "若你因自己的能力猜错而被处决，你可以秘密选择让一名当晚本该死亡的善良玩家免于一死。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我知道你们所有人的事。但我没打算全说出来。」"
@@ -1095,7 +1076,7 @@
                         name: "原罪录", enName: "The Original Sin", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她把镇上所有人的秘密都刻进了同一块石头。按照绝对的顺序。石头碎了，所有人都完了。」",
                         abilities: [
-                            { title: "能力：清算", desc: "每晚，选择一名玩家杀害。此外，你可以秘密『记录』另一名存活玩家（必须严格按照顺时针或逆时针的座位顺序依次记录）。被记录的玩家如果在次日白天发起了提名，他当晚会立刻中毒。" }
+                            { title: "能力：清算", desc: "除首夜外的每晚，选择一名玩家杀害。此外，你可以秘密『记录』另一名存活玩家（必须严格按照顺时针或逆时针的座位顺序依次记录）。被记录的玩家如果在次日白天发起了提名，他当晚会陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我一直在等。等所有人的账都按顺序记满。」"
                     }
@@ -1118,7 +1099,7 @@
                         quote: "「这个镇上的一切都在伤害她。但她一直在用彩色的画笔治愈自己。」",
                         abilities: [
                             { title: "能力：过敏反应", desc: "如果你活着的邻座被恶魔选中作为击杀目标，恶魔的袭击会发生偏移——你的邻座存活，而你代替他死亡。" },
-                            { title: "诅咒：易感", desc: "每当有邪恶玩家对你或你的邻座使用了非击杀类的能力，你立刻陷入中毒状态（得到假信息），直到下个黄昏。" }
+                            { title: "诅咒：易感", desc: "每当有邪恶玩家对你或你的邻座使用了非击杀类的能力，你立刻陷入中毒（能力失效，且可能得到虚假信息），直到下个黄昏。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我一直在好转的。这幅画还没上完色呢。」"
                     },
@@ -1126,7 +1107,7 @@
                         name: "致幻菌丝", enName: "The Mycelium", type: "爪牙", badgeClass: "badge-minion",
                         quote: "「她在地下悄无声息地蔓延相连，等你发现时，所有人脑海里都开出了彩虹色的小蘑菇。」",
                         abilities: [
-                            { title: "能力：蔓延感染", desc: "第一晚，选择一名玩家感染（使其持续中毒，能力失效或得到假信息）。之后的每一晚，你必须选择一名与任何『已被感染者』座位相邻的存活玩家进行感染。感染网会不断扩大，直到你死亡。" },
+                            { title: "能力：蔓延感染", desc: "第一晚，选择一名玩家感染（使其持续中毒，能力失效，且可能得到虚假信息）。之后的每一晚，你必须选择一名与任何『已被感染者』座位相邻的存活玩家进行感染。感染网会不断扩大，直到你死亡。" },
                             { title: "被动：彩色致幻", desc: "每晚你可以给任意一名存活玩家打上『彩色标记』。次日白天，所有已被感染者的处决票，只有投给该标记玩家时才算数；投给其他人的票说书人均不予清点。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我已经把你们都连在一起了......这颜色多好看呀。」"
@@ -1135,7 +1116,7 @@
                         name: "孢子魔", enName: "The Spore", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她从不直接杀人。她只是让人慢慢地、从内部开始，溃烂出迷幻的色彩。」",
                         abilities: [
-                            { title: "能力：潜伏感染", desc: "每晚，选择一名玩家杀害。但该玩家在次日黎明不会立刻被宣布死亡，而是会像正常人一样参与白天的讨论和投票。直到当天的提名阶段结束（黄昏时分），他才会被说书人宣布暴毙身亡。" }
+                            { title: "能力：潜伏感染", desc: "除首夜外的每晚，选择一名玩家杀害。但该玩家在次日黎明不会立刻被宣布死亡，而是会像正常人一样参与白天的讨论和投票。直到当天的提名阶段结束（黄昏时分），他才会被说书人宣布暴毙身亡。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我从来没有伤害过任何人。是你们自己出了问题，不过这颜色倒挺好看的。」"
                     }
@@ -1148,7 +1129,7 @@
                         name: "毒舌家", enName: "The Venomous Tongue", type: "镇民", badgeClass: "badge-town",
                         quote: "「他能用最刻薄的词汇把你的伪装撕碎，但你若对他哭泣，他也许会递给你一块手帕。」",
                         abilities: [
-                            { title: "能力：诛心与软耳", desc: "每个白天，你可以公开嘲讽一名存活玩家。如果该玩家在当天被处决，你当晚得知其具体角色。但如果你今天接受了任何人的『私聊邀请』（没有维持住高冷），你当晚就会立刻中毒（得到假信息）。" }
+                            { title: "能力：诛心与软耳", desc: "每个白天，你可以公开嘲讽一名存活玩家。如果该玩家在当天被处决，你当晚得知其具体角色。但如果你今天接受了任何人的『私聊邀请』（没有维持住高冷），你当晚就会陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「......好吧。这次我承认我看走眼了。」"
                     },
@@ -1156,15 +1137,15 @@
                         name: "解离者", enName: "The Dissociated", type: "外来者", badgeClass: "badge-out",
                         quote: "「他的躯壳坐在这里，但他的灵魂正沉浸在某个荒谬的网络视频里。」",
                         abilities: [
-                            { title: "能力：沉迷梗图", desc: "每局游戏限两次，你可以公开展示一张梗图或搞笑视频，并宣布『我解离了』。此后直到明天黎明，你不能发言也无法投票。你当晚绝对免疫所有击杀，但这会不可避免地导致另一名存活的镇民当晚陷入中毒状态。" }
+                            { title: "诅咒：沉迷与疯狂", desc: "说书人首夜会私下告诉你一个具体的『镇民』角色。你每天白天必须疯狂地向大家证明你就是这个角色。如果你没有好好扮演，或者被人公开指认出你是外来者，说书人会在黄昏时将你立刻处决。" }
                         ],
-                        quoteLabel: "死亡台词", deathQuote: "「......等等，刚才发生什么了？我在看这个有趣的画片。」"
+                        quoteLabel: "死亡台词", deathQuote: "「......等等，我演得不像吗？」"
                     },
                     minion: {
                         name: "黑典", enName: "The Dark Archive", type: "爪牙", badgeClass: "badge-minion",
                         quote: "「那些受人敬仰的歌剧女伶，在他那本厚厚的黑皮书里，全是不堪入目的绰号与荒谬的留影。」",
                         abilities: [
-                            { title: "能力：散布黑称", desc: "游戏开始时，你得知三名善良玩家的具体角色。每天夜晚，你可以秘密向说书人提交一个罕见词汇或『黑称』。次日白天，任何在公开讨论时说出该词的玩家，在当晚都会陷入中毒状态。" }
+                            { title: "能力：散布黑称", desc: "游戏开始时，你得知三名善良玩家的具体角色。每天夜晚，你可以秘密向说书人提交一个罕见词汇或『黑称』。次日白天，任何在公开讨论时说出该词的玩家，在当晚都会陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我收集的画片还有很多......你们懂什么。」"
                     },
@@ -1172,7 +1153,7 @@
                         name: "血肉塑师", enName: "The Flesh Sculptor", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「他用近乎自虐的方式锻造着那具雄伟的躯体。外表坚不可摧，内心却该死地柔软。」",
                         abilities: [
-                            { title: "能力：野蛮与心软", desc: "每晚，选择一名玩家杀害。你的体魄让你对所有查验免疫（注册为善良的镇民）。但你的心太软：如果今天白天有玩家公开向你寻求保护或示好，你当晚绝对无法选择他作为击杀目标。" }
+                            { title: "能力：野蛮与心软", desc: "除首夜外的每晚，选择一名玩家杀害。你的体魄让你对所有查验免疫（注册为善良的镇民）。但你的心太软：如果今天白天有玩家公开向你寻求保护或示好，你当晚绝对无法选择他作为击杀目标。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我只是......练得有些过了。其实我不喜欢见血。」"
                     }
@@ -1185,7 +1166,7 @@
                         name: "倦鸟", enName: "The Tired Bird", type: "镇民", badgeClass: "badge-town",
                         quote: "「她以为停下来就是死亡。直到她停下来，才发现自己还活着。」",
                         abilities: [
-                            { title: "能力：展翅/栖落", desc: "每晚，你必须选择『展翅』或『栖落』。若选择『展翅』，你得知一名存活的邻座是否为邪恶阵营；若选择『栖落』，你不获得信息，但你当晚绝对免疫所有击杀。如果你连续两晚选择『展翅』，你当晚会因疲惫而立刻死亡。" }
+                            { title: "能力：展翅/栖落", desc: "每晚，你必须选择『展翅』或『栖落』。若选择『展翅』，你得知一名存活的邻座是否为邪恶阵营；若选择『栖落』，你可以指定另一名存活玩家，他今晚绝对免疫所有击杀。如果你连续两晚选择『展翅』，你当晚会因疲惫而立刻死亡。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「没关系。我已经落过一次地了。」"
                     },
@@ -1209,7 +1190,7 @@
                         name: "完美主义者", enName: "The Perfectionist", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她对自己的要求是：一个错误都不能有。对别人的要求也是。」",
                         abilities: [
-                            { title: "能力：推倒重来", desc: "每晚，选择一名玩家杀害。每局游戏限一次，你可以强行宣告『这个结果不够完美』：令昨天白天被处决的玩家，或昨晚被杀害的玩家复活。作为对你重整局势的补偿，你当晚可以选择两名玩家杀害（双刀）。" }
+                            { title: "能力：推倒重来", desc: "除首夜外的每晚，选择一名玩家杀害。每局游戏限一次，你可以强行宣告『这个结果不够完美』：令昨天白天被处决的玩家，或昨晚被杀害的玩家复活。作为对你重整局势的补偿，你当晚可以选择两名玩家杀害（双刀）。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我已经......核对过很多遍了。」"
                     }
@@ -1231,7 +1212,7 @@
                         name: "不速客", enName: "The Uninvited", type: "外来者", badgeClass: "badge-out",
                         quote: "「她从不敲门。她只是出现，通常手里还端着一碗汤泡饭。」",
                         abilities: [
-                            { title: "能力：登门与消化不良", desc: "每天夜晚，说书人会随机让你『登门拜访』一名存活的善良玩家（你不知情）。该玩家当晚处于醉酒状态（能力失效或得假信息），并且你第二天白天必须间歇性打嗝。如果那名玩家当晚被恶魔杀害，恶魔的刀会偏移到你身上。" }
+                            { title: "能力：登门与消化不良", desc: "每天夜晚，说书人会随机让你『登门拜访』一名存活的善良玩家（你不知情）。该玩家当晚陷入醉酒（能力失效，且可能得到虚假信息），并且你第二天白天必须间歇性打嗝。如果那名玩家当晚被恶魔杀害，恶魔的刀会偏移到你身上。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我只是路过讨口热汤喝。」"
                     },
@@ -1247,7 +1228,7 @@
                         name: "乱流", enName: "The Turbulence", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她从不准时。连死亡也不知道她什么时候会降临。」",
                         abilities: [
-                            { title: "能力：误点", desc: "每晚，选择一名玩家杀害。如果该玩家是善良阵营，他今晚不会死亡，而是在明天晚上连同你明晚选择的目标一起死亡（双刀）。如果他是邪恶阵营，他立刻死亡。" }
+                            { title: "能力：误点", desc: "除首夜外的每晚，选择一名玩家杀害。如果该玩家是善良阵营，他今晚不会死亡，而是在明天晚上连同你明晚选择的目标一起死亡（双刀）。如果他是邪恶阵营，他立刻死亡。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我没有迟到。是死亡迟到了。」"
                     }
@@ -1260,7 +1241,7 @@
                         name: "当下者", enName: "The Present One", type: "镇民", badgeClass: "badge-town",
                         quote: "「她不记得昨天，但她永远知道今天最重要的是什么，比如把地板擦得一尘不染。」",
                         abilities: [
-                            { title: "能力：此刻", desc: "每个白天开始时，说书人会私下告知你一条关于当前局势的绝对真实的陈述（如：『X是邪恶的』或『昨天死的是外来者』）。<br>但你不能做笔记，必须全靠记忆。" },
+                            { title: "能力：此刻", desc: "除首夜外的每晚，说书人会告知你，在今天白天参与过投票的存活玩家中，共有几名是邪恶阵营。<br>但你不能做笔记，必须全靠记忆。" },
                             { title: "被动：闪光快门", desc: "每局限一次，在白天你可以公开指定一名存活玩家（『弄坏她的相机』）。<br>该玩家在当晚会失去所有能力（无论是被动还是主动）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「今天挺开心的。就是这相机又坏了。」"
@@ -1269,7 +1250,7 @@
                         name: "失忆者", enName: "The Amnesiac", type: "外来者", badgeClass: "badge-out",
                         quote: "「她忘了昨天。也忘了前天。但她笑得很开心，且绝不承认自己忘了。」",
                         abilities: [
-                            { title: "能力：空白与嘴硬", desc: "你以为自己是一个能获取信息的镇民，但你其实是失忆者。<br>你得到的所有信息都是假的，且每天都会与昨天矛盾。<br>如果你在白天公开承认『我之前的信息报错了/我记错了』，你当晚会立刻死亡。" }
+                            { title: "能力：空白与嘴硬", desc: "你以为自己是一个能获取信息的镇民，但你其实是失忆者。<br>你得到的所有信息都是假的，且每天都会与昨天矛盾。<br>如果你在白天公开承认『我之前的信息报错了/我记错了』，你不会死亡，但作为惩罚：当晚会有一名存活的善良镇民陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「没事，没事。我没记错，是你们记错了。」"
                     },
@@ -1277,6 +1258,7 @@
                         name: "玩偶师", enName: "The Puppet Master", type: "爪牙", badgeClass: "badge-minion",
                         quote: "「她喜欢小玩偶。她把所有人都当成了玩偶，并且要摆放得整整齐齐。」",
                         abilities: [
+                            { title: "被动：强迫症", desc: "当你在本局游戏中时，发牌时必须额外加入 1 名外来者（取代 1 名镇民）。" },
                             { title: "能力：洁癖整理", desc: "每晚，你可以选择两名玩家（可以是死人）。<br>直到下个黄昏，在说书人结算所有与『座位、距离、邻座』相关的技能时，这两人的位置视为互换了。<br>这不会改变他们实际的物理座位和发言顺序。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「......哦。游戏结束了吗？等我把这里收拾干净。」"
@@ -1285,7 +1267,7 @@
                         name: "无所谓魔", enName: "The Indifferent", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她从不执着于任何人的死亡。她只在乎清理掉那些弄脏世界的人。」",
                         abilities: [
-                            { title: "能力：随缘", desc: "你每晚不选择目标。相反，说书人每晚会选择一名善良阵营的玩家死亡（为你大扫除）。<br>每局游戏你有两次机会在夜晚宣布『今晚算了』，则当晚无人死亡。" },
+                            { title: "能力：随缘", desc: "除首夜外的每晚，你不选择目标。相反，说书人会选择一名善良阵营的玩家死亡（为你大扫除）。<br>每局游戏你有两次机会在夜晚宣布『今晚算了』，则当晚无人死亡。" },
                             { title: "伪装：无辜者", desc: "任何查验阵营或角色的能力指向你时，你都会被注册（显示）为一名善良的镇民。" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我没有针对任何人。我只是在做大扫除，真的，我没做错。」"
@@ -1403,10 +1385,10 @@
             }
             const count = parseInt(countStr);
             
-            let minionCount = count >= 9 ? 2 : 1;
-            let goodCount = count - 1 - minionCount;
-            let outsiderCount = (count === 9 || count === 6) ? 1 : (Math.random() > 0.5 ? 1 : 0);
-            if (outsiderCount > goodCount) outsiderCount = goodCount;
+            let minionCount = 1;
+            let outsiderCount = 0;
+            if (count === 6 || count === 8) outsiderCount = 1;
+            if (count === 9) outsiderCount = 2;
             
             const combo = recommendCombos[Math.floor(Math.random() * recommendCombos.length)];
             const demonChar = characters.find(c => c.id === combo.demon);
@@ -1415,6 +1397,18 @@
             selectedMinionIds.sort(() => 0.5 - Math.random());
             selectedMinionIds = selectedMinionIds.slice(0, minionCount);
             const minionsChars = characters.filter(c => selectedMinionIds.includes(c.id));
+
+            // 检查是否有玩偶师 (id: 9) 在场，有的话外来者+1，镇民-1
+            let hasPuppetMaster = selectedMinionIds.includes(9);
+            if (hasPuppetMaster) {
+                outsiderCount += 1;
+            }
+
+            let goodCount = count - 1 - minionCount;
+            // 防止外来者数量超过好人总数
+            if (outsiderCount > goodCount) {
+                outsiderCount = goodCount;
+            }
             
             let availableGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id));
             availableGoods.sort(() => 0.5 - Math.random());
@@ -1429,6 +1423,11 @@
             });
 
             document.getElementById('rec-combo-name').textContent = `🔮 本局真实配置 (${count}人局 - 请勿向玩家泄露)`;
+            
+            // 添加提示，如果触发了玩偶师的外来者修改机制
+            if (hasPuppetMaster) {
+                document.getElementById('rec-combo-name').innerHTML += `<br><span style="font-size: 13px; color: #d35427; font-weight: normal;">(⚠️ 因【玩偶师】在场，本局外来者数量自动 +1，镇民数量 -1)</span>`;
+            }
 
             document.getElementById('rec-demon').innerHTML = `
                 <div class="setup-chip demon-chip" onclick="showCard(${demonChar.id})">
@@ -1450,6 +1449,98 @@
                     <span class="chip-proto-name">${g.char.prototype}</span>
                 </div>
             `).join('');
+
+            // --- 恶魔伪装 (Bluffs) 与夜晚唤醒提示 ---
+            let usedGoodIds = goodResults.map(g => g.char.id);
+            let notInGameGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id) && !usedGoodIds.includes(c.id));
+            let bluffs = notInGameGoods.sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            document.getElementById('rec-bluffs').innerHTML = bluffs.map(b => {
+                let isTown = Math.random() > 0.5;
+                let roleName = isTown ? b.roles.townsfolk.name : b.roles.outsider.name;
+                let typeClass = isTown ? 'town-chip' : 'out-chip';
+                return `
+                <div class="setup-chip ${typeClass}" style="opacity: 0.8; cursor: default; box-shadow: none;">
+                    <span class="chip-role-name">${roleName}</span>
+                    <span class="chip-proto-name">${b.prototype}</span>
+                </div>
+                `;
+            }).join('') + `<div style="font-size: 12px; margin-left: 6px; align-self: center; color: #888;">(此为系统推荐。说书人也可<strong>自行决定</strong>告知恶魔哪3个未上场的角色)</div>`;
+
+            // --- 动态生成当前板子唤醒顺序 ---
+            const nightOrderData = {
+                firstNight: [
+                    { id: 'minion_info', text: "爪牙 (睁眼确认恶魔是谁)" },
+                    { id: 'demon_info', text: "恶魔 (睁眼确认爪牙是谁，并获得3个伪装身份)" },
+                    { id: 3, role: 'minion', text: "债主 (选择两名债务人)" },
+                    { id: 5, role: 'minion', text: "致幻菌丝 (选择一名玩家感染)" },
+                    { id: 6, role: 'minion', text: "黑典 (得知3名善良玩家，提交一个黑称)" },
+                    { id: 3, role: 'outsider', text: "金库 (获得关于恶魔的线索)" },
+                    { id: 2, role: 'minion', text: "庄家 (猜测谁会获得信息，并提供伪造信息)" },
+                    { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
+                    { id: 8, role: 'minion', text: "消失者 (可选择发动'消失')" },
+                    { id: 2, role: 'townsfolk', text: "押注者 (猜测一名玩家角色)" },
+                    { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
+                    { id: 8, role: 'townsfolk', text: "夜行者 (查验一名玩家阵营)" },
+                    { id: 4, role: 'outsider', text: "饕餮舌 (窃取一名镇民的信息)" },
+                    { id: 9, role: 'outsider', text: "失忆者 (获得虚假信息)" },
+                    { id: 5, role: 'townsfolk', text: "小草的主人 (得知小草是否不安)" },
+                    { id: 1, role: 'minion', text: "晨哨 (截获他人的情报)" }
+                ],
+                otherNights: [
+                    { id: 2, role: 'minion', text: "庄家 (猜测谁会获得信息，并提供伪造信息)" },
+                    { id: 5, role: 'minion', text: "致幻菌丝 (选择蔓延感染，打彩色标记)" },
+                    { id: 6, role: 'minion', text: "黑典 (提交一个黑称)" },
+                    { id: 8, role: 'minion', text: "消失者 (可选择发动'消失')" },
+                    { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
+                    { id: 'demon_kill', text: "恶魔 (睁眼执行击杀/特殊能力)" },
+                    { id: 3, role: 'minion', text: "债主 (若债务人使用能力，睁眼得知其目标)" },
+                    { id: 1, role: 'townsfolk', text: "遗容师 (得知死亡玩家相邻的邪恶数量)" },
+                    { id: 3, role: 'townsfolk', text: "日历匠 (得知被处决者的角色和生前信息)" },
+                    { id: 4, role: 'townsfolk', text: "墓志铭 (查验参与提名的玩家阵营)" },
+                    { id: 9, role: 'townsfolk', text: "当下者 (得知参与投票的玩家中邪恶数量)" },
+                    { id: 2, role: 'townsfolk', text: "押注者 (猜测一名玩家角色)" },
+                    { id: 6, role: 'townsfolk', text: "毒舌家 (若嘲讽目标被处决，得知其角色)" },
+                    { id: 2, role: 'outsider', text: "跑腿人 (若接受委托，查验并得知该玩家阵营)" },
+                    { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
+                    { id: 8, role: 'townsfolk', text: "夜行者 (查验一名玩家阵营)" },
+                    { id: 4, role: 'outsider', text: "饕餮舌 (窃取一名镇民的信息)" },
+                    { id: 9, role: 'outsider', text: "失忆者 (获得虚假信息)" },
+                    { id: 5, role: 'townsfolk', text: "小草的主人 (得知小草是否不安)" },
+                    { id: 1, role: 'minion', text: "晨哨 (截获他人的情报)" }
+                ]
+            };
+
+            let activeRoles = [];
+            activeRoles.push({ id: demonChar.id, role: 'demon' });
+            minionsChars.forEach(m => activeRoles.push({ id: m.id, role: 'minion' }));
+            goodResults.forEach(g => activeRoles.push({ id: g.char.id, role: g.type === 'out' ? 'outsider' : 'townsfolk' }));
+
+            const buildOrderHtml = (orderArray) => {
+                let html = '<ol style="margin: 0; padding-left: 20px; color: #424242;">';
+                let step = 1;
+                orderArray.forEach(item => {
+                    let isActive = typeof item.id === 'string' || activeRoles.some(ar => ar.id === item.id && ar.role === item.role);
+                    if (isActive) {
+                        html += `<li style="margin-bottom: 5px; line-height: 1.5;">${item.text}</li>`;
+                        step++;
+                    }
+                });
+                if (step === 1) html += '<li>无</li>';
+                html += '</ol>';
+                return html;
+            };
+
+            document.getElementById('rec-night-order').innerHTML = `
+                <div style="margin-bottom: 8px;">
+                    <div style="font-weight: bold; margin-bottom: 4px; color: #1565c0;">🌙 首夜唤醒顺序：</div>
+                    ${buildOrderHtml(nightOrderData.firstNight)}
+                </div>
+                <div>
+                    <div style="font-weight: bold; margin-bottom: 4px; color: #c62828;">🔪 其它夜晚唤醒顺序：</div>
+                    ${buildOrderHtml(nightOrderData.otherNights)}
+                </div>
+            `;
 
             const includeEvent = document.getElementById('includeEvent').checked;
             const eventPanel = document.getElementById('rec-event-panel');
