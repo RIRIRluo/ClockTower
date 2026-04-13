@@ -848,8 +848,8 @@
                         <div class="event-reasoning">在这个所有人都不太正常的病房里，能够确诊别人的精神状态本身就是一种特权。</div>
 
                         <div class="event-section-title">普通效果：</div>
-                        今天白天，任何人只要犯规一次，立刻被护士带走——该玩家在今天白天的投票不计入总数，且今晚<strong>陷入醉酒</strong>（能力失效，且可能得到虚假信息）。如果全场没有任何人犯规（大家都病得很完美），说书人会在黄昏给予奖励：<strong>随机复活一名死去的玩家</strong>！<br>
-                        <div class="event-reasoning">每天都会爆发新的集体癔症，而保持清醒的代价，往往比发疯更沉重。</div>
+                        每天黎明，说书人会私下告知一名玩家他今天确诊了某种『赛博精神病』（陷入疯狂）。他今天白天必须极力在大家面前扮演说书人指定的某种状态（例如：坚称自己是小番茄、每句话必须带个特定口癖、或疯狂针对某人）。如果说书人认为他演得不够卖力，或者他向他人暗示自己是『被迫演的』，说书人会在黄昏时将他强制处决（无视任何免疫）！<br>
+                        <div class="event-reasoning">你必须扮演好你的症状，这不仅是为了自保，也是为了让这场狂欢继续下去。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
                         作为老病号的<strong>【阿水、糖哥、老皇、大猩】</strong>，如果他们为了大局，故意严重违反当天的集体病症。他们虽然会被剥夺选票，但他们在夜晚的深渊里获得了清醒：说书人会私下告知他们<strong>“场上哪一位活着的玩家是爪牙”</strong>。<br>
@@ -1086,13 +1086,13 @@
                 id: 5, prototype: "大猩",
                 roles: {
                     townsfolk: {
-                        name: "小草的主人", enName: "The Dog's Keeper", type: "镇民", badgeClass: "badge-town",
-                        quote: "「她的狗从不吠叫。但每次有危险，它会把头靠过来。」",
+                        name: "大饭店老板", enName: "The Hotelier", type: "镇民", badgeClass: "badge-town",
+                        quote: "「她同时处理着三十个客人的账单，从未出错过。除了那次系统崩溃。」",
                         abilities: [
-                            { title: "能力：小草的直觉", desc: "每晚，说书人会告诉你『小草安静』或『小草不安』。不安意味着当晚有邪恶玩家使用了能力并成功选中了你、或你活着的邻座之一。" },
-                            { title: "被动：敏感体质", desc: "任何夜晚，只要你成为了其他玩家能力的目标（无论好坏），说书人会在当晚将你唤醒并点头。你不会得知具体是什么能力或谁干的。" }
+                            { title: "能力：入住名单", desc: "每晚，你可以向说书人提交一个『入住名单』（选择 1 到 3 名存活玩家）。说书人会告知你这份名单中『是否至少包含 1 名邪恶阵营玩家』。" },
+                            { title: "被动：多线超载", desc: "每当你提交的名单人数大于 1 人时，视为一次『多线操作』。如果你累计进行了 3 次多线操作，你的大脑会因为超时而宕机——你当晚会立刻死亡，且无法获得当晚的信息。" }
                         ],
-                        quoteLabel: "死亡台词", deathQuote: "「小草，乖。去找别人。」"
+                        quoteLabel: "死亡台词", deathQuote: "「等等，三号桌的账单...啊，我掉线了。」"
                     },
                     outsider: {
                         name: "过敏者", enName: "The Afflicted", type: "外来者", badgeClass: "badge-out",
@@ -1250,7 +1250,8 @@
                         name: "失忆者", enName: "The Amnesiac", type: "外来者", badgeClass: "badge-out",
                         quote: "「她忘了昨天。也忘了前天。但她笑得很开心，且绝不承认自己忘了。」",
                         abilities: [
-                            { title: "能力：空白与嘴硬", desc: "你以为自己是一个能获取信息的镇民，但你其实是失忆者。<br>你得到的所有信息都是假的，且每天都会与昨天矛盾。<br>如果你在白天公开承认『我之前的信息报错了/我记错了』，你不会死亡，但作为惩罚：当晚会有一名存活的善良镇民陷入中毒（能力失效，且可能得到虚假信息）。" }
+                            { title: "能力：盲盒与嘴硬", desc: "你不知道你的能力是什么（每局由说书人为你暗中捏造一个极其离谱或强大的『未知能力』或『坑人副作用』）。你每天白天可以私下向说书人猜测一次你的能力。说书人只会回答：『冷（毫无关系）』、『温（沾点边）』、『热（非常接近）』或『中（完全猜对）』。" },
+                            { title: "副作用：死不承认", desc: "只有当你猜中（中）的那天起，你才能真正掌控并自由使用这个能力（或解除副作用）。如果你在白天公开承认『我猜不出来/我放弃了』，当晚会有一名存活的善良镇民陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「没事，没事。我没记错，是你们记错了。」"
                     },
@@ -1273,6 +1274,76 @@
                         quoteLabel: "揭示台词", deathQuote: "「我没有针对任何人。我只是在做大扫除，真的，我没做错。」"
                     }
                 }
+            },
+            {
+                id: 10, prototype: "塔塔",
+                roles: {
+                    townsfolk: {
+                        name: "柜中猫", enName: "The Closet Cat", type: "镇民", badgeClass: "badge-town",
+                        quote: "「所有人都以为它掉下去了。其实它只是在衣柜的阴影里睡了一觉。」",
+                        abilities: [
+                            { title: "被动：认主与受气", desc: "游戏开始时，你必须公开指定一名存活玩家作为『主人』。" },
+                            { title: "能力：大惊失色", desc: "如果你在夜晚被恶魔杀害，说书人在次日黎明会宣布你死亡。但如果你的主人依然存活：在当天的黄昏，你会『从柜子里钻出来』复活（每局限一次）。作为大惊失色的代价：你的主人在今晚会陷入醉酒（能力失效，且可能得到虚假信息），且你在明天白天的投票不计入总数。" }
+                        ],
+                        quoteLabel: "死亡台词", deathQuote: "「（睡眼惺忪地从柜子里探出头）喵？」"
+                    }
+                }
+            },
+            {
+                id: 11, prototype: "缪缪",
+                roles: {
+                    townsfolk: {
+                        name: "衔药猫", enName: "The Pill Catcher", type: "镇民", badgeClass: "badge-town",
+                        quote: "「它长得极美，但只要你摸了别的猫，或者不给它零食，它就会让你付出代价。」",
+                        abilities: [
+                            { title: "被动：争宠", desc: "第一天白天，你必须公开认领一名玩家作为『铲屎官』。除首夜外的每晚，如果有任何善良阵营的玩家对你的铲屎官使用了技能，你会大发脾气，让该善良玩家当晚陷入醉酒（能力失效，且可能得到虚假信息）。" },
+                            { title: "被动：贪吃药丸", desc: "如果有邪恶阵营试图对你或你的铲屎官使用非击杀类的能力（如下毒、查验等），你会把该能力吃掉（对其无效），且说书人会在黎明私下告诉你：『有人偷喂我！』" }
+                        ],
+                        quoteLabel: "死亡台词", deathQuote: "「......你身上有别的猫的味道。」"
+                    }
+                }
+            },
+            {
+                id: 12, prototype: "橘橘",
+                roles: {
+                    townsfolk: {
+                        name: "巡土猫", enName: "The Land Patroller", type: "镇民", badgeClass: "badge-town",
+                        quote: "「整个世界都是朕的领土，所有人都是朕的臣民......除了那辆路过的车。」",
+                        abilities: [
+                            { title: "能力：王之巡幸", desc: "每晚，你可以选择一名玩家。如果他是善良阵营，他今晚绝对免疫恶魔的击杀。" },
+                            { title: "副作用：抗拒喂食", desc: "如果你今晚选择的玩家是邪恶阵营，你不会保护他，且明天白天你必须表现得非常暴躁（大喊大叫），同时你明晚的能力会强制失效（陷入醉酒）。" }
+                        ],
+                        quoteLabel: "死亡台词", deathQuote: "「大胆！谁准你碰朕的——」"
+                    }
+                }
+            },
+            {
+                id: 13, prototype: "黑蛋",
+                roles: {
+                    townsfolk: {
+                        name: "露尾猫", enName: "The Exposed Tail", type: "镇民", badgeClass: "badge-town",
+                        quote: "「他以为自己完美地藏在阴影里。直到他打碎了花盆，并且半个屁股露在外面。」",
+                        abilities: [
+                            { title: "能力：掩耳盗铃", desc: "每晚，你可以选择一名玩家，得知他是否为邪恶阵营。但你得到的结果，实际上永远是该玩家座位右侧那名存活玩家的阵营信息。（你不知情）" },
+                            { title: "被动：流涎反击", desc: "任何在夜晚对你使用了能力的玩家（无论好坏），他在第二天白天的投票不计入总数。" }
+                        ],
+                        quoteLabel: "死亡台词", deathQuote: "「......原来我一直都没藏好吗？」"
+                    }
+                }
+            },
+            {
+                id: 14, prototype: "小草",
+                roles: {
+                    townsfolk: {
+                        name: "青糯犬", enName: "The Boba Pup", type: "镇民", badgeClass: "badge-town",
+                        quote: "「它摇着螺旋桨一样的尾巴扑向你，脚上带着青青糯山奶茶的香气。」",
+                        abilities: [
+                            { title: "能力：狂吠（屏蔽互认）", desc: "你能精准辨识『贱人同事』并对他们大叫，打乱其阵脚。游戏首夜，恶魔和爪牙不会互相得知身份。只要你存活，邪恶阵营就只能各自为战；只有当你死亡时，他们才能在当晚立刻相认。" },
+                            { title: "被动：白眼与尿床", desc: "如果你在夜晚被杀害，你会因为『分离焦虑』发作，悄悄『尿在某人的床上』报复：说书人会在黎明当众宣布两名玩家『身上有尿骚味』（其中一人必定是杀害你的凶手，另一人是无辜的善良玩家）。这不会剥夺任何人的投票权，但全场都会知道真凶就在这两人之中。" }
+                        ],
+                        quoteLabel: "死亡台词", deathQuote: "「......汪呜。（委屈地垂下螺旋桨尾巴）」"
+                    }
+                }
             }
         ];
 
@@ -1285,15 +1356,31 @@
         };
 
         const recommendCombos = [
+            // 第一赛季：经典博弈组合（原版9套优化）
             { demon: 1, minions: [6, 3] }, // 暗室者 + 黑典/债主
             { demon: 2, minions: [4, 9] }, // 赌命者 + 黑历史/玩偶师
             { demon: 3, minions: [5, 7] }, // 影楼魔 + 致幻菌丝/慢语者
-            { demon: 4, minions: [6, 1] }, // 原罪录 + 说客/晨哨
+            { demon: 4, minions: [6, 1] }, // 原罪录 + 黑典/晨哨
             { demon: 5, minions: [2, 8] }, // 孢子魔 + 庄家/消失者
             { demon: 6, minions: [8, 7] }, // 血肉塑师 + 消失者/慢语者
             { demon: 7, minions: [2, 9] }, // 完美主义者 + 庄家/玩偶师
             { demon: 8, minions: [4, 3] }, // 乱流 + 黑历史/债主
-            { demon: 9, minions: [1, 5] }  // 无所谓魔 + 晨哨/致幻菌丝
+            { demon: 9, minions: [1, 5] }, // 无所谓魔 + 晨哨/致幻菌丝
+
+            // 第二赛季：高压信息战（新加入猫狗宠物后的高阶挑战）
+            { demon: 1, minions: [4, 1] }, // 暗室者 + 黑历史/晨哨 (极致偷窥)
+            { demon: 2, minions: [2, 3] }, // 赌命者 + 庄家/债主 (绝对控场)
+            { demon: 3, minions: [6, 5] }, // 影楼魔 + 黑典/致幻菌丝 (疯狂投毒)
+            
+            // 第三赛季：机制大乱斗
+            { demon: 4, minions: [8, 9] }, // 原罪录 + 消失者/玩偶师 (神出鬼没)
+            { demon: 5, minions: [7, 6] }, // 孢子魔 + 慢语者/黑典 (以退为进)
+            { demon: 6, minions: [1, 2] }, // 血肉塑师 + 晨哨/庄家 (野蛮冲撞)
+            
+            // 第四赛季：防守反击与拖把流
+            { demon: 7, minions: [3, 8] }, // 完美主义者 + 债主/消失者 (完美潜藏)
+            { demon: 8, minions: [9, 7] }, // 乱流 + 玩偶师/慢语者 (绝对错乱)
+            { demon: 9, minions: [5, 4] }  // 无所谓魔 + 致幻菌丝/黑历史 (佛系折磨)
         ];
 
         function switchMainTab(tabId) {
@@ -1330,6 +1417,7 @@
 
                 ['townsfolk', 'outsider', 'minion', 'demon'].forEach(roleKey => {
                     const role = char.roles[roleKey];
+                    if (!role) return;
                     let abilitiesHtml = role.abilities.map(ab => {
                         let formattedDesc = ab.desc
                             .replace(/<br\s*\/?>/gi, '')
@@ -1405,22 +1493,31 @@
             }
 
             let goodCount = count - 1 - minionCount;
-            // 防止外来者数量超过好人总数
+            
+            // 过滤出本局可以被选为好人的角色原型
+            let availableGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id));
+
+            // 防止外来者数量超过可用外来者总数
+            let poolForOutsiders = availableGoods.filter(c => c.roles.outsider);
+            if (outsiderCount > poolForOutsiders.length) {
+                outsiderCount = poolForOutsiders.length;
+            }
             if (outsiderCount > goodCount) {
                 outsiderCount = goodCount;
             }
             
-            let availableGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id));
-            availableGoods.sort(() => 0.5 - Math.random());
+            poolForOutsiders.sort(() => 0.5 - Math.random());
+            let selectedOutsiders = poolForOutsiders.slice(0, outsiderCount);
+            let selectedOutsiderIds = selectedOutsiders.map(c => c.id);
+
+            let poolForTownsfolk = availableGoods.filter(c => c.roles.townsfolk && !selectedOutsiderIds.includes(c.id));
+            poolForTownsfolk.sort(() => 0.5 - Math.random());
+            let selectedTownsfolk = poolForTownsfolk.slice(0, goodCount - outsiderCount);
             
-            const goodChars = availableGoods.slice(0, goodCount);
-            const goodResults = goodChars.map((g, index) => {
-                if (index < outsiderCount) {
-                    return { char: g, role: g.roles.outsider.name, type: 'out', label: '外来者' };
-                } else {
-                    return { char: g, role: g.roles.townsfolk.name, type: 'good', label: '镇民' };
-                }
-            });
+            const goodResults = [
+                ...selectedOutsiders.map(g => ({ char: g, role: g.roles.outsider.name, type: 'out', label: '外来者' })),
+                ...selectedTownsfolk.map(g => ({ char: g, role: g.roles.townsfolk.name, type: 'good', label: '镇民' }))
+            ];
 
             document.getElementById('rec-combo-name').textContent = `🔮 本局真实配置 (${count}人局 - 请勿向玩家泄露)`;
             
@@ -1452,13 +1549,16 @@
 
             // --- 恶魔伪装 (Bluffs) 与夜晚唤醒提示 ---
             let usedGoodIds = goodResults.map(g => g.char.id);
-            let notInGameGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id) && !usedGoodIds.includes(c.id));
+            let notInGameGoods = characters.filter(c => c.id !== demonChar.id && !selectedMinionIds.includes(c.id) && !usedGoodIds.includes(c.id) && (c.roles.townsfolk || c.roles.outsider));
             let bluffs = notInGameGoods.sort(() => 0.5 - Math.random()).slice(0, 3);
             
             document.getElementById('rec-bluffs').innerHTML = bluffs.map(b => {
-                let isTown = Math.random() > 0.5;
-                let roleName = isTown ? b.roles.townsfolk.name : b.roles.outsider.name;
-                let typeClass = isTown ? 'town-chip' : 'out-chip';
+                let availableTypes = [];
+                if (b.roles.townsfolk) availableTypes.push('townsfolk');
+                if (b.roles.outsider) availableTypes.push('outsider');
+                let typeKey = availableTypes[Math.floor(Math.random() * availableTypes.length)];
+                let roleName = b.roles[typeKey].name;
+                let typeClass = typeKey === 'townsfolk' ? 'town-chip' : 'out-chip';
                 return `
                 <div class="setup-chip ${typeClass}" style="opacity: 0.8; cursor: default; box-shadow: none;">
                     <span class="chip-role-name">${roleName}</span>
@@ -1479,12 +1579,14 @@
                     { id: 2, role: 'minion', text: "庄家 (猜测谁会获得信息，并提供伪造信息)" },
                     { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
                     { id: 8, role: 'minion', text: "消失者 (可选择发动'消失')" },
+                    { id: 12, role: 'townsfolk', text: "巡土猫 (选择一名玩家保护)" },
                     { id: 2, role: 'townsfolk', text: "押注者 (猜测一名玩家角色)" },
                     { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
                     { id: 8, role: 'townsfolk', text: "夜行者 (查验一名玩家阵营)" },
+                    { id: 13, role: 'townsfolk', text: "露尾猫 (查验一名玩家阵营)" },
                     { id: 4, role: 'outsider', text: "饕餮舌 (窃取一名镇民的信息)" },
                     { id: 9, role: 'outsider', text: "失忆者 (获得虚假信息)" },
-                    { id: 5, role: 'townsfolk', text: "小草的主人 (得知小草是否不安)" },
+                    { id: 5, role: 'townsfolk', text: "大饭店老板 (提交名单并得知邪恶数量)" },
                     { id: 1, role: 'minion', text: "晨哨 (截获他人的情报)" }
                 ],
                 otherNights: [
@@ -1493,6 +1595,7 @@
                     { id: 6, role: 'minion', text: "黑典 (提交一个黑称)" },
                     { id: 8, role: 'minion', text: "消失者 (可选择发动'消失')" },
                     { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
+                    { id: 12, role: 'townsfolk', text: "巡土猫 (选择一名玩家保护)" },
                     { id: 'demon_kill', text: "恶魔 (睁眼执行击杀/特殊能力)" },
                     { id: 3, role: 'minion', text: "债主 (若债务人使用能力，睁眼得知其目标)" },
                     { id: 1, role: 'townsfolk', text: "遗容师 (得知死亡玩家相邻的邪恶数量)" },
@@ -1504,9 +1607,10 @@
                     { id: 2, role: 'outsider', text: "跑腿人 (若接受委托，查验并得知该玩家阵营)" },
                     { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
                     { id: 8, role: 'townsfolk', text: "夜行者 (查验一名玩家阵营)" },
+                    { id: 13, role: 'townsfolk', text: "露尾猫 (查验一名玩家阵营)" },
                     { id: 4, role: 'outsider', text: "饕餮舌 (窃取一名镇民的信息)" },
                     { id: 9, role: 'outsider', text: "失忆者 (获得虚假信息)" },
-                    { id: 5, role: 'townsfolk', text: "小草的主人 (得知小草是否不安)" },
+                    { id: 5, role: 'townsfolk', text: "大饭店老板 (提交名单并得知邪恶数量)" },
                     { id: 1, role: 'minion', text: "晨哨 (截获他人的情报)" }
                 ]
             };
@@ -1571,13 +1675,13 @@
                 </div>
             `;
 
-            // 1. 镇民：目前共9个，全部展示 (通常官方剧本是13个，这里根据原型数量全上)
-            let scriptTowns = characters.map(c => renderScriptItem(c, c.roles.townsfolk));
+            // 1. 镇民：全部展示 (通常官方剧本是13个，这里根据原型数量全上)
+            let scriptTowns = characters.filter(c => c.roles.townsfolk).map(c => renderScriptItem(c, c.roles.townsfolk));
             document.getElementById('script-town').innerHTML = scriptTowns.join('');
 
             // 2. 外来者：真实的外来者 + 随机假外来者 = 凑齐4个 (或随场上数量调整，标准板子通常展示4个)
             let actualOutsiderIds = goodResults.filter(g => g.type === 'out').map(g => g.char.id);
-            let poolOutsiders = characters.filter(c => !actualOutsiderIds.includes(c.id)).sort(() => 0.5 - Math.random());
+            let poolOutsiders = characters.filter(c => c.roles.outsider && !actualOutsiderIds.includes(c.id)).sort(() => 0.5 - Math.random());
             let targetOutCount = Math.max(4, actualOutsiderIds.length);
             let finalOutsiders = characters.filter(c => actualOutsiderIds.includes(c.id))
                                    .concat(poolOutsiders.slice(0, targetOutCount - actualOutsiderIds.length))
@@ -1585,7 +1689,7 @@
             document.getElementById('script-out').innerHTML = finalOutsiders.map(c => renderScriptItem(c, c.roles.outsider)).join('');
 
             // 3. 爪牙：真实的爪牙 + 随机假爪牙 = 凑齐4个
-            let poolMinions = characters.filter(c => !selectedMinionIds.includes(c.id)).sort(() => 0.5 - Math.random());
+            let poolMinions = characters.filter(c => c.roles.minion && !selectedMinionIds.includes(c.id)).sort(() => 0.5 - Math.random());
             let targetMinCount = Math.max(4, selectedMinionIds.length);
             let finalMinions = characters.filter(c => selectedMinionIds.includes(c.id))
                                  .concat(poolMinions.slice(0, targetMinCount - selectedMinionIds.length))
@@ -1593,7 +1697,7 @@
             document.getElementById('script-minion').innerHTML = finalMinions.map(c => renderScriptItem(c, c.roles.minion)).join('');
 
             // 4. 恶魔：真实的恶魔 + 随机假恶魔 = 凑齐4个
-            let poolDemons = characters.filter(c => c.id !== demonChar.id).sort(() => 0.5 - Math.random());
+            let poolDemons = characters.filter(c => c.roles.demon && c.id !== demonChar.id).sort(() => 0.5 - Math.random());
             let finalDemons = [demonChar].concat(poolDemons.slice(0, 3)).sort((a,b) => a.id - b.id);
             document.getElementById('script-demon').innerHTML = finalDemons.map(c => renderScriptItem(c, c.roles.demon)).join('');
 
