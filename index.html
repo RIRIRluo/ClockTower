@@ -214,7 +214,9 @@
         .nav-btn {
             background: var(--card-bg);
             border: 2px solid var(--text-main);
-            padding: 8px 20px;
+            padding: 8px 0;
+            width: 80px;
+            text-align: center;
             border-radius: 4px;
             cursor: pointer;
             font-size: 15px;
@@ -553,8 +555,8 @@
             .main-tabs { width: 100%; justify-content: center; }
             .main-tab-btn { font-size: 14px; padding: 10px 16px; flex: 1; text-align: center; }
             
-            .nav-menu { gap: 8px; }
-            .nav-btn { font-size: 14px; padding: 10px 16px; flex: 1 1 auto; min-width: 70px; }
+            .nav-menu { gap: 8px; justify-content: center; }
+            .nav-btn { font-size: 14px; padding: 10px 0; width: 70px; flex: none; }
             
             .sub-roles-grid { grid-template-columns: 1fr; gap: 16px; }
             .sub-role-card { padding: 16px; }
@@ -852,7 +854,7 @@
                         <div class="event-reasoning">你必须扮演好你的症状，这不仅是为了自保，也是为了让这场狂欢继续下去。</div>
 
                         <div class="event-section-title">隐藏羁绊：</div>
-                        作为老病号的<strong>【阿水、糖哥、老皇、大猩】</strong>，如果他们为了大局，故意严重违反当天的集体病症。他们虽然会被剥夺选票，但他们在夜晚的深渊里获得了清醒：说书人会私下告知他们<strong>“场上哪一位活着的玩家是爪牙”</strong>。<br>
+                        作为老病号的<strong>【阿水、糖哥、老皇、大猩】</strong>，如果他们为了大局，故意严重违反当天的集体病症。他们不仅<strong>免于被强制处决</strong>（仅被剥夺明天的选票），还在夜晚的深渊里获得了清醒：说书人会私下告知他们<strong>“场上哪一位活着的玩家是爪牙”</strong>。<br>
                         <div class="event-reasoning">老病号们在彻底发疯后，反而触底反弹，看穿了虚妄。</div>
                     </div>
                 </div>
@@ -1064,19 +1066,19 @@
                         quoteLabel: "死亡台词", deathQuote: "「还没吃够......这味道有点奇怪，但我喜欢。」"
                     },
                     minion: {
-                        name: "黑历史", enName: "The Black Record", type: "爪牙", badgeClass: "badge-minion",
-                        quote: "「她什么都记得。包括你不想让人知道的那些。」",
+                        name: "黑客", enName: "The Hacker", type: "爪牙", badgeClass: "badge-minion",
+                        quote: "「她什么都记得。只要吃到了对的瓜，她就能改写这个人的设定。」",
                         abilities: [
-                            { title: "能力：翻旧账", desc: "每个白天限一次，你可以公开揭露一名存活玩家的『黑历史』（猜测其具体角色）。如果猜中，该玩家当晚失去能力，且次日白天他的选票不计入总数。每局游戏你最多可以猜错三次，第三次猜错时你立刻被处决。" },
-                            { title: "被动：豆腐心", desc: "若你因自己的能力猜错而被处决，你可以秘密选择让一名当晚本该死亡的善良玩家免于一死。" }
+                            { title: "能力：惊天大瓜", desc: "游戏开始时，你得知两名善良玩家的具体角色。每局限一次，在夜晚，你可以选择这两名玩家中的一位，并向说书人提交一个『全新的镇民或外来者角色』。" },
+                            { title: "被动：改写设定", desc: "被你喂瓜的玩家，明天黎明会被说书人私下通知其角色已变为你提交的这个新角色。他依然是好人阵营，但原技能作废，只能使用新技能。" }
                         ],
-                        quoteLabel: "死亡台词", deathQuote: "「我知道你们所有人的事。但我没打算全说出来。」"
+                        quoteLabel: "死亡台词", deathQuote: "「这个瓜我已经吃腻了。不如换个口味？」"
                     },
                     demon: {
                         name: "原罪录", enName: "The Original Sin", type: "恶魔", badgeClass: "badge-demon",
                         quote: "「她把镇上所有人的秘密都刻进了同一块石头。按照绝对的顺序。石头碎了，所有人都完了。」",
                         abilities: [
-                            { title: "能力：清算", desc: "除首夜外的每晚，选择一名玩家杀害。此外，你可以秘密『记录』另一名存活玩家（必须严格按照顺时针或逆时针的座位顺序依次记录）。被记录的玩家如果在次日白天发起了提名，他当晚会陷入中毒（能力失效，且可能得到虚假信息）。" }
+                            { title: "能力：清算", desc: "除首夜外的每晚，选择一名玩家杀害。此外，你可以秘密『记录』另一名存活玩家（每晚必须严格按照顺时针或逆时针座位顺序依次记录）。所有『已被记录』的存活玩家如果在白天发起了提名，当晚就会陷入中毒。如果你成功记录到了第4个人（原罪录满），你当晚可以立刻额外杀害两名『已被记录』的玩家！" }
                         ],
                         quoteLabel: "揭示台词", deathQuote: "「我一直在等。等所有人的账都按顺序记满。」"
                     }
@@ -1098,7 +1100,7 @@
                         name: "过敏者", enName: "The Afflicted", type: "外来者", badgeClass: "badge-out",
                         quote: "「这个镇上的一切都在伤害她。但她一直在用彩色的画笔治愈自己。」",
                         abilities: [
-                            { title: "能力：过敏反应", desc: "如果你活着的邻座被恶魔选中作为击杀目标，恶魔的袭击会发生偏移——你的邻座存活，而你代替他死亡。" },
+                            { title: "能力：过敏反应", desc: "如果你活着的邻座被恶魔选中作为击杀目标，恶魔的袭击会发生偏移——你的邻座存活，而你代替他死亡，且该邻座明天一整天会陷入中毒（能力失效，且可能得到虚假信息）。" },
                             { title: "诅咒：易感", desc: "每当有邪恶玩家对你或你的邻座使用了非击杀类的能力，你立刻陷入中毒（能力失效，且可能得到虚假信息），直到下个黄昏。" }
                         ],
                         quoteLabel: "死亡台词", deathQuote: "「我一直在好转的。这幅画还没上完色呢。」"
@@ -1113,12 +1115,13 @@
                         quoteLabel: "死亡台词", deathQuote: "「我已经把你们都连在一起了......这颜色多好看呀。」"
                     },
                     demon: {
-                        name: "孢子魔", enName: "The Spore", type: "恶魔", badgeClass: "badge-demon",
-                        quote: "「她从不直接杀人。她只是让人慢慢地、从内部开始，溃烂出迷幻的色彩。」",
+                        name: "小草的主人", enName: "Master of Xiaocao", type: "恶魔", badgeClass: "badge-demon",
+                        quote: "「她把路边那只流浪的小可怜，一点点护养成了最粘人的修狗。前两个夜晚？她只是在给它做社会化脱敏训练。」",
                         abilities: [
-                            { title: "能力：潜伏感染", desc: "除首夜外的每晚，选择一名玩家杀害。但该玩家在次日黎明不会立刻被宣布死亡，而是会像正常人一样参与白天的讨论和投票。直到当天的提名阶段结束（黄昏时分），他才会被说书人宣布暴毙身亡。" }
+                            { title: "能力：耐心护养", desc: "游戏的前两个夜晚，你无法杀人（平安夜）。到了第三个夜晚，你必须秘密指定另一名存活玩家（无论好坏）。该玩家被小草彻底可爱到了（自愿成为新主人），立刻转变为『恶魔』阵营并获得每晚杀害1人的能力，同时他成为邪恶阵营胜利的核心。" },
+                            { title: "被动：脱手隐退", desc: "把小草托付出去后，你失去恶魔身份，转变为一名只能在白天投票的『爪牙』。如果你在第三晚的转化完成前（护养期）被处决，你的心血彻底白费：邪恶阵营立刻失败。" }
                         ],
-                        quoteLabel: "揭示台词", deathQuote: "「我从来没有伤害过任何人。是你们自己出了问题，不过这颜色倒挺好看的。」"
+                        quoteLabel: "死亡台词", deathQuote: "「小草......还没吃晚饭呢......」"
                     }
                 }
             },
@@ -1126,12 +1129,13 @@
                 id: 6, prototype: "糖哥",
                 roles: {
                     townsfolk: {
-                        name: "毒舌家", enName: "The Venomous Tongue", type: "镇民", badgeClass: "badge-town",
-                        quote: "「他能用最刻薄的词汇把你的伪装撕碎，但你若对他哭泣，他也许会递给你一块手帕。」",
+                        name: "双面毒舌", enName: "The Two-Faced Viper", type: "镇民", badgeClass: "badge-town",
+                        quote: "「他一边在耳机里听着K-pop，一边用最高级的词汇输出着最恶毒的机制。」",
                         abilities: [
-                            { title: "能力：诛心与软耳", desc: "每个白天，你可以公开嘲讽一名存活玩家。如果该玩家在当天被处决，你当晚得知其具体角色。但如果你今天接受了任何人的『私聊邀请』（没有维持住高冷），你当晚就会陷入中毒（能力失效，且可能得到虚假信息）。" }
+                            { title: "能力：跨界主理", desc: "游戏开始时，说书人会私下告诉你一个本局不在场的『爪牙』角色。你凭借极强的『学习与打工能力』，永久获得该爪牙的能力。你依然是善良阵营（胜利条件不变）。" },
+                            { title: "副作用：耳软走神", desc: "如果在白天有任何玩家私下找你聊天超过1分钟（你耳根子软被说动了），或者你在讨论时『解离』（走神）了，你当晚就会陷入中毒（能力失效，且可能得到虚假信息）。" }
                         ],
-                        quoteLabel: "死亡台词", deathQuote: "「......好吧。这次我承认我看走眼了。」"
+                        quoteLabel: "死亡台词", deathQuote: "「......别吵，我刚才走神了，没听见。」"
                     },
                     outsider: {
                         name: "解离者", enName: "The Dissociated", type: "外来者", badgeClass: "badge-out",
@@ -1358,29 +1362,29 @@
         const recommendCombos = [
             // 第一赛季：经典博弈组合（原版9套优化）
             { demon: 1, minions: [6, 3] }, // 暗室者 + 黑典/债主
-            { demon: 2, minions: [4, 9] }, // 赌命者 + 黑历史/玩偶师
+            { demon: 2, minions: [4, 9] }, // 赌命者 + 黑客/玩偶师
             { demon: 3, minions: [5, 7] }, // 影楼魔 + 致幻菌丝/慢语者
             { demon: 4, minions: [6, 1] }, // 原罪录 + 黑典/晨哨
-            { demon: 5, minions: [2, 8] }, // 孢子魔 + 庄家/消失者
+            { demon: 5, minions: [2, 8] }, // 小草的主人 + 庄家/消失者
             { demon: 6, minions: [8, 7] }, // 血肉塑师 + 消失者/慢语者
             { demon: 7, minions: [2, 9] }, // 完美主义者 + 庄家/玩偶师
-            { demon: 8, minions: [4, 3] }, // 乱流 + 黑历史/债主
+            { demon: 8, minions: [4, 3] }, // 乱流 + 黑客/债主
             { demon: 9, minions: [1, 5] }, // 无所谓魔 + 晨哨/致幻菌丝
 
             // 第二赛季：高压信息战（新加入猫狗宠物后的高阶挑战）
-            { demon: 1, minions: [4, 1] }, // 暗室者 + 黑历史/晨哨 (极致偷窥)
+            { demon: 1, minions: [4, 1] }, // 暗室者 + 黑客/晨哨 (极致偷窥)
             { demon: 2, minions: [2, 3] }, // 赌命者 + 庄家/债主 (绝对控场)
             { demon: 3, minions: [6, 5] }, // 影楼魔 + 黑典/致幻菌丝 (疯狂投毒)
             
             // 第三赛季：机制大乱斗
             { demon: 4, minions: [8, 9] }, // 原罪录 + 消失者/玩偶师 (神出鬼没)
-            { demon: 5, minions: [7, 6] }, // 孢子魔 + 慢语者/黑典 (以退为进)
+            { demon: 5, minions: [7, 6] }, // 小草的主人 + 慢语者/黑典 (以退为进)
             { demon: 6, minions: [1, 2] }, // 血肉塑师 + 晨哨/庄家 (野蛮冲撞)
             
             // 第四赛季：防守反击与拖把流
             { demon: 7, minions: [3, 8] }, // 完美主义者 + 债主/消失者 (完美潜藏)
             { demon: 8, minions: [9, 7] }, // 乱流 + 玩偶师/慢语者 (绝对错乱)
-            { demon: 9, minions: [5, 4] }  // 无所谓魔 + 致幻菌丝/黑历史 (佛系折磨)
+            { demon: 9, minions: [5, 4] }  // 无所谓魔 + 致幻菌丝/黑客 (佛系折磨)
         ];
 
         function switchMainTab(tabId) {
@@ -1578,7 +1582,9 @@
                     { id: 3, role: 'outsider', text: "金库 (获得关于恶魔的线索)" },
                     { id: 2, role: 'minion', text: "庄家 (猜测谁会获得信息，并提供伪造信息)" },
                     { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
+                    { id: 4, role: 'minion', text: "黑客 (可选择一名玩家改变其角色)" },
                     { id: 8, role: 'minion', text: "消失者 (可选择发动'消失')" },
+                    { id: 6, role: 'townsfolk', text: "双面毒舌 (得知窃取的爪牙技能，并作为爪牙行动)" },
                     { id: 12, role: 'townsfolk', text: "巡土猫 (选择一名玩家保护)" },
                     { id: 2, role: 'townsfolk', text: "押注者 (猜测一名玩家角色)" },
                     { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
@@ -1597,13 +1603,14 @@
                     { id: 9, role: 'minion', text: "玩偶师 (选择两名玩家交换位置判定)" },
                     { id: 12, role: 'townsfolk', text: "巡土猫 (选择一名玩家保护)" },
                     { id: 'demon_kill', text: "恶魔 (睁眼执行击杀/特殊能力)" },
+                    { id: 5, role: 'demon', text: "小草的主人 (第三晚选择一名玩家变为恶魔)" },
                     { id: 3, role: 'minion', text: "债主 (若债务人使用能力，睁眼得知其目标)" },
                     { id: 1, role: 'townsfolk', text: "遗容师 (得知死亡玩家相邻的邪恶数量)" },
                     { id: 3, role: 'townsfolk', text: "日历匠 (得知被处决者的角色和生前信息)" },
                     { id: 4, role: 'townsfolk', text: "墓志铭 (查验参与提名的玩家阵营)" },
                     { id: 9, role: 'townsfolk', text: "当下者 (得知参与投票的玩家中邪恶数量)" },
+                    { id: 6, role: 'townsfolk', text: "双面毒舌 (作为爪牙行动)" },
                     { id: 2, role: 'townsfolk', text: "押注者 (猜测一名玩家角色)" },
-                    { id: 6, role: 'townsfolk', text: "毒舌家 (若嘲讽目标被处决，得知其角色)" },
                     { id: 2, role: 'outsider', text: "跑腿人 (若接受委托，查验并得知该玩家阵营)" },
                     { id: 7, role: 'townsfolk', text: "倦鸟 (选择展翅或栖落)" },
                     { id: 8, role: 'townsfolk', text: "夜行者 (查验一名玩家阵营)" },
